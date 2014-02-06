@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.1.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_1_0.dtd">
+
+<liferay-portlet-app>
+	
+	<portlet>
+		<portlet-name>manufacturer-portlet</portlet-name>
+		<icon>/assign_user_roles.png</icon>
+		<asset-renderer-factory>com.liferay.training.parts.asset.ManufacturerAssetRendererFactory</asset-renderer-factory>
+		<workflow-handler>com.liferay.training.parts.workflow.ManufacturerWorkflowHandler</workflow-handler>
+		<instanceable>false</instanceable>
+		<header-portlet-css>/css/portlet.css</header-portlet-css>
+		<footer-portlet-javascript>
+			/js/javascript.js
+		</footer-portlet-javascript>
+		<css-class-wrapper>
+			manufacturerportlet-portlet
+		</css-class-wrapper>
+	</portlet>
+	<portlet>
+		<portlet-name>parts-portlet</portlet-name>
+		<icon>/tool.png</icon>
+		<social-activity-interpreter-class>
+			com.liferay.training.parts.social.PartsSocialActivityInterpreter
+		</social-activity-interpreter-class>
+		<instanceable>false</instanceable>
+		<header-portlet-css>/css/portlet.css</header-portlet-css>
+		<footer-portlet-javascript>
+			/js/javascript.js
+		</footer-portlet-javascript>
+		<css-class-wrapper>partsportlet-portlet</css-class-wrapper>
+	</portlet>
+	<role-mapper>
+		<role-name>administrator</role-name>
+		<role-link>Administrator</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>guest</role-name>
+		<role-link>Guest</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>power-user</role-name>
+		<role-link>Power User</role-link>
+	</role-mapper>
+	<role-mapper>
+		<role-name>user</role-name>
+		<role-link>User</role-link>
+	</role-mapper>
+</liferay-portlet-app>
