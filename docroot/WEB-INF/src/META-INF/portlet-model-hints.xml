@@ -28,10 +28,14 @@
 		<field name="partNumber" type="String" />
 		<field name="orderDate" type="Date" />
 		<field name="quantity" type="int" />
-		<field name="status" type="int" />
-		<field name="statusByUserId" type="long" />
-		<field name="statusByUserName" type="String" />
-		<field name="statusDate" type="Date" />
-		<field name="userName" type="String" />
+	</model>
+	<model name="com.liferay.training.parts.model.PurchaseOrder">
+		<field name="orderId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="partId" type="long" />
+		<field name="userId" type="long" />
+		<field name="orderDate" type="Date" />
+		<field name="closed" type="boolean" />
 	</model>
 </model-hints>

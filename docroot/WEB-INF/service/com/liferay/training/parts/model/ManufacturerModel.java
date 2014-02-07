@@ -384,8 +384,6 @@ public interface ManufacturerModel extends BaseModel<Manufacturer>,
 
 	public Manufacturer toEscapedModel();
 
-	public Manufacturer toUnescapedModel();
-
 	public String toString();
 
 	public String toXmlString();

@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.WorkflowedModel;
 import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
@@ -43,7 +42,7 @@ import java.util.Map;
  * @see com.liferay.training.parts.model.impl.PartModelImpl
  * @generated
  */
-public interface PartModel extends BaseModel<Part>, WorkflowedModel {
+public interface PartModel extends BaseModel<Part> {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -306,154 +305,6 @@ public interface PartModel extends BaseModel<Part>, WorkflowedModel {
 	 */
 	public void setQuantity(int quantity);
 
-	/**
-	 * Returns the status of this part.
-	 *
-	 * @return the status of this part
-	 */
-	public int getStatus();
-
-	/**
-	 * Sets the status of this part.
-	 *
-	 * @param status the status of this part
-	 */
-	public void setStatus(int status);
-
-	/**
-	 * Returns the status by user ID of this part.
-	 *
-	 * @return the status by user ID of this part
-	 */
-	public long getStatusByUserId();
-
-	/**
-	 * Sets the status by user ID of this part.
-	 *
-	 * @param statusByUserId the status by user ID of this part
-	 */
-	public void setStatusByUserId(long statusByUserId);
-
-	/**
-	 * Returns the status by user uuid of this part.
-	 *
-	 * @return the status by user uuid of this part
-	 * @throws SystemException if a system exception occurred
-	 */
-	public String getStatusByUserUuid() throws SystemException;
-
-	/**
-	 * Sets the status by user uuid of this part.
-	 *
-	 * @param statusByUserUuid the status by user uuid of this part
-	 */
-	public void setStatusByUserUuid(String statusByUserUuid);
-
-	/**
-	 * Returns the status by user name of this part.
-	 *
-	 * @return the status by user name of this part
-	 */
-	@AutoEscape
-	public String getStatusByUserName();
-
-	/**
-	 * Sets the status by user name of this part.
-	 *
-	 * @param statusByUserName the status by user name of this part
-	 */
-	public void setStatusByUserName(String statusByUserName);
-
-	/**
-	 * Returns the status date of this part.
-	 *
-	 * @return the status date of this part
-	 */
-	public Date getStatusDate();
-
-	/**
-	 * Sets the status date of this part.
-	 *
-	 * @param statusDate the status date of this part
-	 */
-	public void setStatusDate(Date statusDate);
-
-	/**
-	 * Returns the user name of this part.
-	 *
-	 * @return the user name of this part
-	 */
-	@AutoEscape
-	public String getUserName();
-
-	/**
-	 * Sets the user name of this part.
-	 *
-	 * @param userName the user name of this part
-	 */
-	public void setUserName(String userName);
-
-	/**
-	 * @deprecated Renamed to {@link #isApproved()}
-	 */
-	public boolean getApproved();
-
-	/**
-	 * Returns <code>true</code> if this part is approved.
-	 *
-	 * @return <code>true</code> if this part is approved; <code>false</code> otherwise
-	 */
-	public boolean isApproved();
-
-	/**
-	 * Returns <code>true</code> if this part is denied.
-	 *
-	 * @return <code>true</code> if this part is denied; <code>false</code> otherwise
-	 */
-	public boolean isDenied();
-
-	/**
-	 * Returns <code>true</code> if this part is a draft.
-	 *
-	 * @return <code>true</code> if this part is a draft; <code>false</code> otherwise
-	 */
-	public boolean isDraft();
-
-	/**
-	 * Returns <code>true</code> if this part is expired.
-	 *
-	 * @return <code>true</code> if this part is expired; <code>false</code> otherwise
-	 */
-	public boolean isExpired();
-
-	/**
-	 * Returns <code>true</code> if this part is inactive.
-	 *
-	 * @return <code>true</code> if this part is inactive; <code>false</code> otherwise
-	 */
-	public boolean isInactive();
-
-	/**
-	 * Returns <code>true</code> if this part is incomplete.
-	 *
-	 * @return <code>true</code> if this part is incomplete; <code>false</code> otherwise
-	 */
-	public boolean isIncomplete();
-
-	/**
-	 * Returns <code>true</code> if this part is pending.
-	 *
-	 * @return <code>true</code> if this part is pending; <code>false</code> otherwise
-	 */
-	public boolean isPending();
-
-	/**
-	 * Returns <code>true</code> if this part is scheduled.
-	 *
-	 * @return <code>true</code> if this part is scheduled; <code>false</code> otherwise
-	 */
-	public boolean isScheduled();
-
 	public boolean isNew();
 
 	public void setNew(boolean n);
@@ -484,8 +335,6 @@ public interface PartModel extends BaseModel<Part>, WorkflowedModel {
 	public CacheModel<Part> toCacheModel();
 
 	public Part toEscapedModel();
-
-	public Part toUnescapedModel();
 
 	public String toString();
 

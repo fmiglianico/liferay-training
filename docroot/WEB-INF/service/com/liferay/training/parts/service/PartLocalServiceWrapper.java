@@ -328,6 +328,18 @@ public class PartLocalServiceWrapper implements PartLocalService,
 		return _partLocalService.getPartsByManufacturer(manufacturerId, groupId);
 	}
 
+	public void updateInventory(long partId, int value)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_partLocalService.updateInventory(partId, value);
+	}
+
+	public void reorderParts()
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.search.SearchException {
+		_partLocalService.reorderParts();
+	}
+
 	/**
 	 * @deprecated Renamed to {@link #getWrappedService}
 	 */

@@ -16,19 +16,17 @@ package com.liferay.training.parts.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
-import com.liferay.training.parts.service.ClpSerializer;
 import com.liferay.training.parts.service.ManufacturerLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -181,19 +179,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setUuid(String uuid) {
 		_uuid = uuid;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUuid", String.class);
-
-				method.invoke(_manufacturerRemoteModel, uuid);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getManufacturerId() {
@@ -202,19 +187,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setManufacturerId(long manufacturerId) {
 		_manufacturerId = manufacturerId;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setManufacturerId", long.class);
-
-				method.invoke(_manufacturerRemoteModel, manufacturerId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getCompanyId() {
@@ -223,19 +195,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setCompanyId", long.class);
-
-				method.invoke(_manufacturerRemoteModel, companyId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getGroupId() {
@@ -244,19 +203,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setGroupId", long.class);
-
-				method.invoke(_manufacturerRemoteModel, groupId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getUserId() {
@@ -265,19 +211,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setUserId(long userId) {
 		_userId = userId;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserId", long.class);
-
-				method.invoke(_manufacturerRemoteModel, userId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public String getUserUuid() throws SystemException {
@@ -294,19 +227,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setName(String name) {
 		_name = name;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setName", String.class);
-
-				method.invoke(_manufacturerRemoteModel, name);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public String getEmailAddress() {
@@ -315,19 +235,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setEmailAddress(String emailAddress) {
 		_emailAddress = emailAddress;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setEmailAddress", String.class);
-
-				method.invoke(_manufacturerRemoteModel, emailAddress);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public String getWebsite() {
@@ -336,19 +243,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setWebsite(String website) {
 		_website = website;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setWebsite", String.class);
-
-				method.invoke(_manufacturerRemoteModel, website);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public String getPhoneNumber() {
@@ -357,19 +251,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setPhoneNumber(String phoneNumber) {
 		_phoneNumber = phoneNumber;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setPhoneNumber", String.class);
-
-				method.invoke(_manufacturerRemoteModel, phoneNumber);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public int getStatus() {
@@ -378,19 +259,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setStatus(int status) {
 		_status = status;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setStatus", int.class);
-
-				method.invoke(_manufacturerRemoteModel, status);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getStatusByUserId() {
@@ -399,19 +267,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setStatusByUserId(long statusByUserId) {
 		_statusByUserId = statusByUserId;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setStatusByUserId", long.class);
-
-				method.invoke(_manufacturerRemoteModel, statusByUserId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public String getStatusByUserUuid() throws SystemException {
@@ -429,20 +284,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setStatusByUserName(String statusByUserName) {
 		_statusByUserName = statusByUserName;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setStatusByUserName",
-						String.class);
-
-				method.invoke(_manufacturerRemoteModel, statusByUserName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public Date getStatusDate() {
@@ -451,19 +292,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setStatusDate(Date statusDate) {
 		_statusDate = statusDate;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setStatusDate", Date.class);
-
-				method.invoke(_manufacturerRemoteModel, statusDate);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public String getUserName() {
@@ -472,19 +300,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	public void setUserName(String userName) {
 		_userName = userName;
-
-		if (_manufacturerRemoteModel != null) {
-			try {
-				Class<?> clazz = _manufacturerRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserName", String.class);
-
-				method.invoke(_manufacturerRemoteModel, userName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	/**
@@ -574,47 +389,6 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 		_manufacturerRemoteModel = manufacturerRemoteModel;
 	}
 
-	public Object invokeOnRemoteModel(String methodName,
-		Class<?>[] parameterTypes, Object[] parameterValues)
-		throws Exception {
-		Object[] remoteParameterValues = new Object[parameterValues.length];
-
-		for (int i = 0; i < parameterValues.length; i++) {
-			if (parameterValues[i] != null) {
-				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
-			}
-		}
-
-		Class<?> remoteModelClass = _manufacturerRemoteModel.getClass();
-
-		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
-
-		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
-
-		for (int i = 0; i < parameterTypes.length; i++) {
-			if (parameterTypes[i].isPrimitive()) {
-				remoteParameterTypes[i] = parameterTypes[i];
-			}
-			else {
-				String parameterTypeName = parameterTypes[i].getName();
-
-				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
-			}
-		}
-
-		Method method = remoteModelClass.getMethod(methodName,
-				remoteParameterTypes);
-
-		Object returnValue = method.invoke(_manufacturerRemoteModel,
-				remoteParameterValues);
-
-		if (returnValue != null) {
-			returnValue = ClpSerializer.translateOutput(returnValue);
-		}
-
-		return returnValue;
-	}
-
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			ManufacturerLocalServiceUtil.addManufacturer(this);
@@ -626,12 +400,8 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	@Override
 	public Manufacturer toEscapedModel() {
-		return (Manufacturer)ProxyUtil.newProxyInstance(Manufacturer.class.getClassLoader(),
+		return (Manufacturer)Proxy.newProxyInstance(Manufacturer.class.getClassLoader(),
 			new Class[] { Manufacturer.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	public Manufacturer toUnescapedModel() {
-		return this;
 	}
 
 	@Override
@@ -670,15 +440,18 @@ public class ManufacturerClp extends BaseModelImpl<Manufacturer>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof ManufacturerClp)) {
+		if (obj == null) {
 			return false;
 		}
 
-		ManufacturerClp manufacturer = (ManufacturerClp)obj;
+		ManufacturerClp manufacturer = null;
+
+		try {
+			manufacturer = (ManufacturerClp)obj;
+		}
+		catch (ClassCastException cce) {
+			return false;
+		}
 
 		long primaryKey = manufacturer.getPrimaryKey();
 

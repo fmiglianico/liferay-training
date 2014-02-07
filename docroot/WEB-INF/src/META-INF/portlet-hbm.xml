@@ -4,6 +4,7 @@
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="com.liferay.training.parts.model.Manufacturer" />
 	<import class="com.liferay.training.parts.model.Part" />
+	<import class="com.liferay.training.parts.model.PurchaseOrder" />
 	<class name="com.liferay.training.parts.model.impl.ManufacturerImpl" table="Inventory_Manufacturer">
 		<cache usage="read-write" />
 		<id name="manufacturerId" type="long">
@@ -37,10 +38,17 @@
 		<property name="partNumber" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="orderDate" type="org.hibernate.type.TimestampType" />
 		<property name="quantity" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
-		<property name="statusByUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="statusByUserName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="statusDate" type="org.hibernate.type.TimestampType" />
-		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.training.parts.model.impl.PurchaseOrderImpl" table="Inventory_PurchaseOrder">
+		<cache usage="read-write" />
+		<id name="orderId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="partId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="orderDate" type="org.hibernate.type.TimestampType" />
+		<property name="closed" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 	</class>
 </hibernate-mapping>

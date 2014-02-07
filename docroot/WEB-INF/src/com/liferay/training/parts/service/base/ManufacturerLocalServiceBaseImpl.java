@@ -40,14 +40,18 @@ import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portlet.asset.service.AssetEntryLocalService;
 import com.liferay.portlet.asset.service.AssetEntryService;
 import com.liferay.portlet.asset.service.persistence.AssetEntryPersistence;
+import com.liferay.portlet.social.service.SocialActivityLocalService;
+import com.liferay.portlet.social.service.persistence.SocialActivityPersistence;
 
 import com.liferay.training.parts.model.Manufacturer;
 import com.liferay.training.parts.service.ManufacturerLocalService;
 import com.liferay.training.parts.service.ManufacturerService;
 import com.liferay.training.parts.service.PartLocalService;
-import com.liferay.training.parts.service.PartService;
+import com.liferay.training.parts.service.PurchaseOrderLocalService;
 import com.liferay.training.parts.service.persistence.ManufacturerPersistence;
 import com.liferay.training.parts.service.persistence.PartPersistence;
+import com.liferay.training.parts.service.persistence.PurchaseOrderFinder;
+import com.liferay.training.parts.service.persistence.PurchaseOrderPersistence;
 
 import java.io.Serializable;
 
@@ -370,24 +374,6 @@ public abstract class ManufacturerLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the part remote service.
-	 *
-	 * @return the part remote service
-	 */
-	public PartService getPartService() {
-		return partService;
-	}
-
-	/**
-	 * Sets the part remote service.
-	 *
-	 * @param partService the part remote service
-	 */
-	public void setPartService(PartService partService) {
-		this.partService = partService;
-	}
-
-	/**
 	 * Returns the part persistence.
 	 *
 	 * @return the part persistence
@@ -403,6 +389,62 @@ public abstract class ManufacturerLocalServiceBaseImpl
 	 */
 	public void setPartPersistence(PartPersistence partPersistence) {
 		this.partPersistence = partPersistence;
+	}
+
+	/**
+	 * Returns the purchase order local service.
+	 *
+	 * @return the purchase order local service
+	 */
+	public PurchaseOrderLocalService getPurchaseOrderLocalService() {
+		return purchaseOrderLocalService;
+	}
+
+	/**
+	 * Sets the purchase order local service.
+	 *
+	 * @param purchaseOrderLocalService the purchase order local service
+	 */
+	public void setPurchaseOrderLocalService(
+		PurchaseOrderLocalService purchaseOrderLocalService) {
+		this.purchaseOrderLocalService = purchaseOrderLocalService;
+	}
+
+	/**
+	 * Returns the purchase order persistence.
+	 *
+	 * @return the purchase order persistence
+	 */
+	public PurchaseOrderPersistence getPurchaseOrderPersistence() {
+		return purchaseOrderPersistence;
+	}
+
+	/**
+	 * Sets the purchase order persistence.
+	 *
+	 * @param purchaseOrderPersistence the purchase order persistence
+	 */
+	public void setPurchaseOrderPersistence(
+		PurchaseOrderPersistence purchaseOrderPersistence) {
+		this.purchaseOrderPersistence = purchaseOrderPersistence;
+	}
+
+	/**
+	 * Returns the purchase order finder.
+	 *
+	 * @return the purchase order finder
+	 */
+	public PurchaseOrderFinder getPurchaseOrderFinder() {
+		return purchaseOrderFinder;
+	}
+
+	/**
+	 * Sets the purchase order finder.
+	 *
+	 * @param purchaseOrderFinder the purchase order finder
+	 */
+	public void setPurchaseOrderFinder(PurchaseOrderFinder purchaseOrderFinder) {
+		this.purchaseOrderFinder = purchaseOrderFinder;
 	}
 
 	/**
@@ -588,6 +630,44 @@ public abstract class ManufacturerLocalServiceBaseImpl
 		this.assetEntryPersistence = assetEntryPersistence;
 	}
 
+	/**
+	 * Returns the social activity local service.
+	 *
+	 * @return the social activity local service
+	 */
+	public SocialActivityLocalService getSocialActivityLocalService() {
+		return socialActivityLocalService;
+	}
+
+	/**
+	 * Sets the social activity local service.
+	 *
+	 * @param socialActivityLocalService the social activity local service
+	 */
+	public void setSocialActivityLocalService(
+		SocialActivityLocalService socialActivityLocalService) {
+		this.socialActivityLocalService = socialActivityLocalService;
+	}
+
+	/**
+	 * Returns the social activity persistence.
+	 *
+	 * @return the social activity persistence
+	 */
+	public SocialActivityPersistence getSocialActivityPersistence() {
+		return socialActivityPersistence;
+	}
+
+	/**
+	 * Sets the social activity persistence.
+	 *
+	 * @param socialActivityPersistence the social activity persistence
+	 */
+	public void setSocialActivityPersistence(
+		SocialActivityPersistence socialActivityPersistence) {
+		this.socialActivityPersistence = socialActivityPersistence;
+	}
+
 	public void afterPropertiesSet() {
 		Class<?> clazz = getClass();
 
@@ -675,10 +755,14 @@ public abstract class ManufacturerLocalServiceBaseImpl
 	protected ManufacturerPersistence manufacturerPersistence;
 	@BeanReference(type = PartLocalService.class)
 	protected PartLocalService partLocalService;
-	@BeanReference(type = PartService.class)
-	protected PartService partService;
 	@BeanReference(type = PartPersistence.class)
 	protected PartPersistence partPersistence;
+	@BeanReference(type = PurchaseOrderLocalService.class)
+	protected PurchaseOrderLocalService purchaseOrderLocalService;
+	@BeanReference(type = PurchaseOrderPersistence.class)
+	protected PurchaseOrderPersistence purchaseOrderPersistence;
+	@BeanReference(type = PurchaseOrderFinder.class)
+	protected PurchaseOrderFinder purchaseOrderFinder;
 	@BeanReference(type = CounterLocalService.class)
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)
@@ -699,6 +783,10 @@ public abstract class ManufacturerLocalServiceBaseImpl
 	protected AssetEntryService assetEntryService;
 	@BeanReference(type = AssetEntryPersistence.class)
 	protected AssetEntryPersistence assetEntryPersistence;
+	@BeanReference(type = SocialActivityLocalService.class)
+	protected SocialActivityLocalService socialActivityLocalService;
+	@BeanReference(type = SocialActivityPersistence.class)
+	protected SocialActivityPersistence socialActivityPersistence;
 	private String _beanIdentifier;
 	private ClassLoader _classLoader;
 	private ManufacturerLocalServiceClpInvoker _clpInvoker = new ManufacturerLocalServiceClpInvoker();

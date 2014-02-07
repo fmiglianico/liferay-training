@@ -305,6 +305,15 @@ public class ManufacturerLocalServiceUtil {
 		return getService().addManufacturer(newManufacturer, serviceContext);
 	}
 
+	public static com.liferay.training.parts.model.Manufacturer updateManufacturer(
+		com.liferay.training.parts.model.Manufacturer editedManufacturer,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateManufacturer(editedManufacturer, serviceContext);
+	}
+
 	/**
 	* Gets a list with all the Manufacturers in a group
 	*/
@@ -329,15 +338,6 @@ public class ManufacturerLocalServiceUtil {
 	public static int getManufacturersCountByGroupId(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getManufacturersCountByGroupId(groupId);
-	}
-
-	public static com.liferay.training.parts.model.Manufacturer updateManufacturer(
-		com.liferay.training.parts.model.Manufacturer editedManufacturer,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .updateManufacturer(editedManufacturer, serviceContext);
 	}
 
 	public static com.liferay.training.parts.model.Manufacturer updateStatus(

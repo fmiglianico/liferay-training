@@ -108,46 +108,60 @@ public class PartLocalServiceClpInvoker {
 				"com.liferay.training.parts.model.Part", "boolean"
 			};
 
-		_methodName55 = "getBeanIdentifier";
+		_methodName59 = "getBeanIdentifier";
 
-		_methodParameterTypes55 = new String[] {  };
+		_methodParameterTypes59 = new String[] {  };
 
-		_methodName56 = "setBeanIdentifier";
+		_methodName60 = "setBeanIdentifier";
 
-		_methodParameterTypes56 = new String[] { "java.lang.String" };
+		_methodParameterTypes60 = new String[] { "java.lang.String" };
 
-		_methodName61 = "addPart";
+		_methodName65 = "addPart";
 
-		_methodParameterTypes61 = new String[] {
+		_methodParameterTypes65 = new String[] {
 				"com.liferay.training.parts.model.Part",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName62 = "deletePart";
+		_methodName66 = "updatePart";
 
-		_methodParameterTypes62 = new String[] {
+		_methodParameterTypes66 = new String[] {
 				"com.liferay.training.parts.model.Part"
 			};
 
-		_methodName63 = "deletePart";
+		_methodName67 = "deletePart";
 
-		_methodParameterTypes63 = new String[] { "long" };
+		_methodParameterTypes67 = new String[] {
+				"com.liferay.training.parts.model.Part"
+			};
 
-		_methodName64 = "getPartsByGroupId";
+		_methodName68 = "deletePart";
 
-		_methodParameterTypes64 = new String[] { "long" };
+		_methodParameterTypes68 = new String[] { "long" };
 
-		_methodName65 = "getPartsByGroupId";
+		_methodName69 = "getPartsByGroupId";
 
-		_methodParameterTypes65 = new String[] { "long", "int", "int" };
+		_methodParameterTypes69 = new String[] { "long" };
 
-		_methodName66 = "getPartsCountByGroupId";
+		_methodName70 = "getPartsByGroupId";
 
-		_methodParameterTypes66 = new String[] { "long" };
+		_methodParameterTypes70 = new String[] { "long", "int", "int" };
 
-		_methodName67 = "getPartsByManufacturer";
+		_methodName71 = "getPartsCountByGroupId";
 
-		_methodParameterTypes67 = new String[] { "long", "long" };
+		_methodParameterTypes71 = new String[] { "long" };
+
+		_methodName72 = "getPartsByManufacturer";
+
+		_methodParameterTypes72 = new String[] { "long", "long" };
+
+		_methodName73 = "updateInventory";
+
+		_methodParameterTypes73 = new String[] { "long", "int" };
+
+		_methodName75 = "reorderParts";
+
+		_methodParameterTypes75 = new String[] {  };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -245,55 +259,69 @@ public class PartLocalServiceClpInvoker {
 				((Boolean)arguments[1]).booleanValue());
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			return PartLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			PartLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
-
-			return null;
-		}
-
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
-			return PartLocalServiceUtil.addPart((com.liferay.training.parts.model.Part)arguments[0],
-				(com.liferay.portal.service.ServiceContext)arguments[1]);
-		}
-
-		if (_methodName62.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-			return PartLocalServiceUtil.deletePart((com.liferay.training.parts.model.Part)arguments[0]);
-		}
-
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-			return PartLocalServiceUtil.deletePart(((Long)arguments[0]).longValue());
-		}
-
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
-			return PartLocalServiceUtil.getPartsByGroupId(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName65.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+			return PartLocalServiceUtil.addPart((com.liferay.training.parts.model.Part)arguments[0],
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
+		}
+
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+			return PartLocalServiceUtil.updatePart((com.liferay.training.parts.model.Part)arguments[0]);
+		}
+
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+			return PartLocalServiceUtil.deletePart((com.liferay.training.parts.model.Part)arguments[0]);
+		}
+
+		if (_methodName68.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+			return PartLocalServiceUtil.deletePart(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName69.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+			return PartLocalServiceUtil.getPartsByGroupId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			return PartLocalServiceUtil.getPartsByGroupId(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName66.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
 			return PartLocalServiceUtil.getPartsCountByGroupId(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName72.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
 			return PartLocalServiceUtil.getPartsByManufacturer(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+			PartLocalServiceUtil.updateInventory(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName75.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
+			PartLocalServiceUtil.reorderParts();
 		}
 
 		throw new UnsupportedOperationException();
@@ -333,22 +361,28 @@ public class PartLocalServiceClpInvoker {
 	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
-	private String _methodName56;
-	private String[] _methodParameterTypes56;
-	private String _methodName61;
-	private String[] _methodParameterTypes61;
-	private String _methodName62;
-	private String[] _methodParameterTypes62;
-	private String _methodName63;
-	private String[] _methodParameterTypes63;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
 	private String _methodName65;
 	private String[] _methodParameterTypes65;
 	private String _methodName66;
 	private String[] _methodParameterTypes66;
 	private String _methodName67;
 	private String[] _methodParameterTypes67;
+	private String _methodName68;
+	private String[] _methodParameterTypes68;
+	private String _methodName69;
+	private String[] _methodParameterTypes69;
+	private String _methodName70;
+	private String[] _methodParameterTypes70;
+	private String _methodName71;
+	private String[] _methodParameterTypes71;
+	private String _methodName72;
+	private String[] _methodParameterTypes72;
+	private String _methodName73;
+	private String[] _methodParameterTypes73;
+	private String _methodName75;
+	private String[] _methodParameterTypes75;
 }

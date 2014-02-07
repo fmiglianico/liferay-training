@@ -1,5 +1,7 @@
 package com.liferay.training.parts.portlet;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -10,6 +12,7 @@ import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.training.parts.model.Manufacturer;
+import com.liferay.training.parts.model.Part;
 import com.liferay.training.parts.model.impl.ManufacturerImpl;
 import com.liferay.training.parts.service.ManufacturerLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -35,6 +38,7 @@ public class ManufacturerPortlet extends MVCPortlet {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) request
 				.getAttribute(WebKeys.THEME_DISPLAY);
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Manufacturer.class.getName(), request);
 
 		long groupId = themeDisplay.getScopeGroupId();
 
@@ -49,7 +53,7 @@ public class ManufacturerPortlet extends MVCPortlet {
 			if (ManufacturerValidator
 					.validateManufacturer(manufacturer, errors)) {
 
-				ServiceContext serviceContext = ServiceContextFactory.getInstance(Manufacturer.class.getName(), request);
+				long userId = themeDisplay.getUserId();
 
 				ManufacturerLocalServiceUtil.addManufacturer(manufacturer,
 						serviceContext);
@@ -110,7 +114,7 @@ public class ManufacturerPortlet extends MVCPortlet {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay) request
 				.getAttribute(WebKeys.THEME_DISPLAY);
-
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Manufacturer.class.getName(), request);
 		long groupId = themeDisplay.getScopeGroupId();
 
 		Manufacturer manufacturer = manufacturerFromRequest(request);
@@ -123,9 +127,6 @@ public class ManufacturerPortlet extends MVCPortlet {
 
 			if (ManufacturerValidator
 					.validateManufacturer(manufacturer, errors)) {
-				
-				ServiceContext serviceContext = ServiceContextFactory.getInstance(Manufacturer.class.getName(), request);
-
 				ManufacturerLocalServiceUtil.updateManufacturer(manufacturer, serviceContext);
 
 				SessionMessages.add(request, "manufacturer-updated");
@@ -165,7 +166,7 @@ public class ManufacturerPortlet extends MVCPortlet {
 				"com.liferay.training.parts.model.Manufacturer",
 				manufacturerId, "DELETE")) {
 
-			//ArrayList<String> errors = new ArrayList<String>();
+			ArrayList<String> errors = new ArrayList<String>();
 
 			if (Validator.isNotNull(manufacturerId)) {
 				ManufacturerLocalServiceUtil.deleteManufacturer(manufacturerId);
@@ -174,7 +175,7 @@ public class ManufacturerPortlet extends MVCPortlet {
 
 				sendRedirect(request, response);
 			} else {
-				SessionErrors.add(request, "error-deleting");
+				SessionErrors.add(request, "deletion-error");
 			}
 		} else {
 			SessionErrors.add(request, "permission-error");
@@ -182,25 +183,7 @@ public class ManufacturerPortlet extends MVCPortlet {
 		}
 	}
 
-	/**
-	 * Sets the preferences for how many manufacturers can be viewed per page
-	 * and the format for the phone number
-	 * 
-	 */
-	public void setManufacturerPref(ActionRequest request,
-			ActionResponse response) throws Exception {
 
-		String rowsPerPage = ParamUtil.getString(request, "rowsPerPage");
-		String phoneFormat = ParamUtil.getString(request, "phoneFormat");
-
-		PortletPreferences prefs = request.getPreferences();
-
-		prefs.setValue("rowsPerPage", rowsPerPage);
-		prefs.setValue("phoneFormat", phoneFormat);
-
-		prefs.store();
-	}
-
-	//private static Log _log = LogFactoryUtil.getLog(ManufacturerPortlet.class);
+	private static Log _log = LogFactoryUtil.getLog(ManufacturerPortlet.class);
 
 }

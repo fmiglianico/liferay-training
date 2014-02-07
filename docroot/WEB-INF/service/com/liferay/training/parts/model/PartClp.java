@@ -21,20 +21,17 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
-import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
-import com.liferay.training.parts.service.ClpSerializer;
 import com.liferay.training.parts.service.PartLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -86,11 +83,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 		attributes.put("partNumber", getPartNumber());
 		attributes.put("orderDate", getOrderDate());
 		attributes.put("quantity", getQuantity());
-		attributes.put("status", getStatus());
-		attributes.put("statusByUserId", getStatusByUserId());
-		attributes.put("statusByUserName", getStatusByUserName());
-		attributes.put("statusDate", getStatusDate());
-		attributes.put("userName", getUserName());
 
 		return attributes;
 	}
@@ -156,36 +148,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 		if (quantity != null) {
 			setQuantity(quantity);
 		}
-
-		Integer status = (Integer)attributes.get("status");
-
-		if (status != null) {
-			setStatus(status);
-		}
-
-		Long statusByUserId = (Long)attributes.get("statusByUserId");
-
-		if (statusByUserId != null) {
-			setStatusByUserId(statusByUserId);
-		}
-
-		String statusByUserName = (String)attributes.get("statusByUserName");
-
-		if (statusByUserName != null) {
-			setStatusByUserName(statusByUserName);
-		}
-
-		Date statusDate = (Date)attributes.get("statusDate");
-
-		if (statusDate != null) {
-			setStatusDate(statusDate);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
-		}
 	}
 
 	public String getUuid() {
@@ -194,19 +156,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setUuid(String uuid) {
 		_uuid = uuid;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUuid", String.class);
-
-				method.invoke(_partRemoteModel, uuid);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getPartId() {
@@ -215,19 +164,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setPartId(long partId) {
 		_partId = partId;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setPartId", long.class);
-
-				method.invoke(_partRemoteModel, partId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getCompanyId() {
@@ -236,19 +172,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setCompanyId", long.class);
-
-				method.invoke(_partRemoteModel, companyId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getGroupId() {
@@ -257,19 +180,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setGroupId", long.class);
-
-				method.invoke(_partRemoteModel, groupId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public long getUserId() {
@@ -278,19 +188,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setUserId(long userId) {
 		_userId = userId;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserId", long.class);
-
-				method.invoke(_partRemoteModel, userId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public String getUserUuid() throws SystemException {
@@ -307,19 +204,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setManufacturerId(long manufacturerId) {
 		_manufacturerId = manufacturerId;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setManufacturerId", long.class);
-
-				method.invoke(_partRemoteModel, manufacturerId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public String getName() {
@@ -363,19 +247,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setName(String name) {
 		_name = name;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setName", String.class);
-
-				method.invoke(_partRemoteModel, name);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public void setName(String name, Locale locale) {
@@ -441,19 +312,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setPartNumber(String partNumber) {
 		_partNumber = partNumber;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setPartNumber", String.class);
-
-				method.invoke(_partRemoteModel, partNumber);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public Date getOrderDate() {
@@ -462,19 +320,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setOrderDate(Date orderDate) {
 		_orderDate = orderDate;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setOrderDate", Date.class);
-
-				method.invoke(_partRemoteModel, orderDate);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
 	}
 
 	public int getQuantity() {
@@ -483,213 +328,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setQuantity(int quantity) {
 		_quantity = quantity;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setQuantity", int.class);
-
-				method.invoke(_partRemoteModel, quantity);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	public int getStatus() {
-		return _status;
-	}
-
-	public void setStatus(int status) {
-		_status = status;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setStatus", int.class);
-
-				method.invoke(_partRemoteModel, status);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	public long getStatusByUserId() {
-		return _statusByUserId;
-	}
-
-	public void setStatusByUserId(long statusByUserId) {
-		_statusByUserId = statusByUserId;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setStatusByUserId", long.class);
-
-				method.invoke(_partRemoteModel, statusByUserId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	public String getStatusByUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getStatusByUserId(), "uuid",
-			_statusByUserUuid);
-	}
-
-	public void setStatusByUserUuid(String statusByUserUuid) {
-		_statusByUserUuid = statusByUserUuid;
-	}
-
-	public String getStatusByUserName() {
-		return _statusByUserName;
-	}
-
-	public void setStatusByUserName(String statusByUserName) {
-		_statusByUserName = statusByUserName;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setStatusByUserName",
-						String.class);
-
-				method.invoke(_partRemoteModel, statusByUserName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	public Date getStatusDate() {
-		return _statusDate;
-	}
-
-	public void setStatusDate(Date statusDate) {
-		_statusDate = statusDate;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setStatusDate", Date.class);
-
-				method.invoke(_partRemoteModel, statusDate);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-
-		if (_partRemoteModel != null) {
-			try {
-				Class<?> clazz = _partRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserName", String.class);
-
-				method.invoke(_partRemoteModel, userName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	/**
-	 * @deprecated {@link #isApproved}
-	 */
-	public boolean getApproved() {
-		return isApproved();
-	}
-
-	public boolean isApproved() {
-		if (getStatus() == WorkflowConstants.STATUS_APPROVED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isDenied() {
-		if (getStatus() == WorkflowConstants.STATUS_DENIED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isDraft() {
-		if (getStatus() == WorkflowConstants.STATUS_DRAFT) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isExpired() {
-		if (getStatus() == WorkflowConstants.STATUS_EXPIRED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isInactive() {
-		if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isIncomplete() {
-		if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isPending() {
-		if (getStatus() == WorkflowConstants.STATUS_PENDING) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isScheduled() {
-		if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	public BaseModel<?> getPartRemoteModel() {
@@ -698,47 +336,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	public void setPartRemoteModel(BaseModel<?> partRemoteModel) {
 		_partRemoteModel = partRemoteModel;
-	}
-
-	public Object invokeOnRemoteModel(String methodName,
-		Class<?>[] parameterTypes, Object[] parameterValues)
-		throws Exception {
-		Object[] remoteParameterValues = new Object[parameterValues.length];
-
-		for (int i = 0; i < parameterValues.length; i++) {
-			if (parameterValues[i] != null) {
-				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
-			}
-		}
-
-		Class<?> remoteModelClass = _partRemoteModel.getClass();
-
-		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
-
-		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
-
-		for (int i = 0; i < parameterTypes.length; i++) {
-			if (parameterTypes[i].isPrimitive()) {
-				remoteParameterTypes[i] = parameterTypes[i];
-			}
-			else {
-				String parameterTypeName = parameterTypes[i].getName();
-
-				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
-			}
-		}
-
-		Method method = remoteModelClass.getMethod(methodName,
-				remoteParameterTypes);
-
-		Object returnValue = method.invoke(_partRemoteModel,
-				remoteParameterValues);
-
-		if (returnValue != null) {
-			returnValue = ClpSerializer.translateOutput(returnValue);
-		}
-
-		return returnValue;
 	}
 
 	public void persist() throws SystemException {
@@ -759,12 +356,8 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	@Override
 	public Part toEscapedModel() {
-		return (Part)ProxyUtil.newProxyInstance(Part.class.getClassLoader(),
+		return (Part)Proxy.newProxyInstance(Part.class.getClassLoader(),
 			new Class[] { Part.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	public Part toUnescapedModel() {
-		return this;
 	}
 
 	@Override
@@ -781,11 +374,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 		clone.setPartNumber(getPartNumber());
 		clone.setOrderDate(getOrderDate());
 		clone.setQuantity(getQuantity());
-		clone.setStatus(getStatus());
-		clone.setStatusByUserId(getStatusByUserId());
-		clone.setStatusByUserName(getStatusByUserName());
-		clone.setStatusDate(getStatusDate());
-		clone.setUserName(getUserName());
 
 		return clone;
 	}
@@ -804,15 +392,18 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof PartClp)) {
+		if (obj == null) {
 			return false;
 		}
 
-		PartClp part = (PartClp)obj;
+		PartClp part = null;
+
+		try {
+			part = (PartClp)obj;
+		}
+		catch (ClassCastException cce) {
+			return false;
+		}
 
 		long primaryKey = part.getPrimaryKey();
 
@@ -831,7 +422,7 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -853,23 +444,13 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 		sb.append(getOrderDate());
 		sb.append(", quantity=");
 		sb.append(getQuantity());
-		sb.append(", status=");
-		sb.append(getStatus());
-		sb.append(", statusByUserId=");
-		sb.append(getStatusByUserId());
-		sb.append(", statusByUserName=");
-		sb.append(getStatusByUserName());
-		sb.append(", statusDate=");
-		sb.append(getStatusDate());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.training.parts.model.Part");
@@ -915,26 +496,6 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 			"<column><column-name>quantity</column-name><column-value><![CDATA[");
 		sb.append(getQuantity());
 		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>status</column-name><column-value><![CDATA[");
-		sb.append(getStatus());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>statusByUserId</column-name><column-value><![CDATA[");
-		sb.append(getStatusByUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>statusByUserName</column-name><column-value><![CDATA[");
-		sb.append(getStatusByUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>statusDate</column-name><column-value><![CDATA[");
-		sb.append(getStatusDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -953,11 +514,5 @@ public class PartClp extends BaseModelImpl<Part> implements Part {
 	private String _partNumber;
 	private Date _orderDate;
 	private int _quantity;
-	private int _status;
-	private long _statusByUserId;
-	private String _statusByUserUuid;
-	private String _statusByUserName;
-	private Date _statusDate;
-	private String _userName;
 	private BaseModel<?> _partRemoteModel;
 }

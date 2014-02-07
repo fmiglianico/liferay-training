@@ -138,6 +138,14 @@ public class PartLocalServiceClp implements PartLocalService {
 		_methodName24 = "getPartsByManufacturer";
 
 		_methodParameterTypes24 = new String[] { "long", "long" };
+
+		_methodName25 = "updateInventory";
+
+		_methodParameterTypes25 = new String[] { "long", "int" };
+
+		_methodName26 = "reorderParts";
+
+		_methodParameterTypes26 = new String[] {  };
 	}
 
 	public com.liferay.training.parts.model.Part addPart(
@@ -853,6 +861,62 @@ public class PartLocalServiceClp implements PartLocalService {
 		return (java.util.List<com.liferay.training.parts.model.Part>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public void updateInventory(long partId, int value)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName25,
+				_methodParameterTypes25, new Object[] { partId, value });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void reorderParts()
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.search.SearchException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName26,
+				_methodParameterTypes26, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.search.SearchException) {
+				throw (com.liferay.portal.kernel.search.SearchException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -902,4 +966,8 @@ public class PartLocalServiceClp implements PartLocalService {
 	private String[] _methodParameterTypes23;
 	private String _methodName24;
 	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
 }

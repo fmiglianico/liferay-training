@@ -302,6 +302,15 @@ public class ManufacturerLocalServiceWrapper implements ManufacturerLocalService
 			serviceContext);
 	}
 
+	public com.liferay.training.parts.model.Manufacturer updateManufacturer(
+		com.liferay.training.parts.model.Manufacturer editedManufacturer,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _manufacturerLocalService.updateManufacturer(editedManufacturer,
+			serviceContext);
+	}
+
 	/**
 	* Gets a list with all the Manufacturers in a group
 	*/
@@ -327,15 +336,6 @@ public class ManufacturerLocalServiceWrapper implements ManufacturerLocalService
 	public int getManufacturersCountByGroupId(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _manufacturerLocalService.getManufacturersCountByGroupId(groupId);
-	}
-
-	public com.liferay.training.parts.model.Manufacturer updateManufacturer(
-		com.liferay.training.parts.model.Manufacturer editedManufacturer,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _manufacturerLocalService.updateManufacturer(editedManufacturer,
-			serviceContext);
 	}
 
 	public com.liferay.training.parts.model.Manufacturer updateStatus(

@@ -21,7 +21,7 @@ import com.liferay.training.parts.service.ClpSerializer;
 import com.liferay.training.parts.service.ManufacturerLocalServiceUtil;
 import com.liferay.training.parts.service.ManufacturerServiceUtil;
 import com.liferay.training.parts.service.PartLocalServiceUtil;
-import com.liferay.training.parts.service.PartServiceUtil;
+import com.liferay.training.parts.service.PurchaseOrderLocalServiceUtil;
 
 /**
  * @author Brian Wing Shun Chan
@@ -43,7 +43,7 @@ public class ClpMessageListener extends BaseMessageListener {
 			ManufacturerServiceUtil.clearService();
 			PartLocalServiceUtil.clearService();
 
-			PartServiceUtil.clearService();
+			PurchaseOrderLocalServiceUtil.clearService();
 		}
 	}
 }

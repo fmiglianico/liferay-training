@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
 
+
 public class ManufacturerWorkflowHandler extends BaseWorkflowHandler {
 
 	public String getClassName() {

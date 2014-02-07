@@ -27,6 +27,7 @@ import com.liferay.portal.model.BaseModel;
 
 import com.liferay.training.parts.model.ManufacturerClp;
 import com.liferay.training.parts.model.PartClp;
+import com.liferay.training.parts.model.PurchaseOrderClp;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -111,6 +112,10 @@ public class ClpSerializer {
 			return translateInputPart(oldModel);
 		}
 
+		if (oldModelClassName.equals(PurchaseOrderClp.class.getName())) {
+			return translateInputPurchaseOrder(oldModel);
+		}
+
 		return oldModel;
 	}
 
@@ -146,6 +151,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputPurchaseOrder(BaseModel<?> oldModel) {
+		PurchaseOrderClp oldClpModel = (PurchaseOrderClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getPurchaseOrderRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInput(Object obj) {
 		if (obj instanceof BaseModel<?>) {
 			return translateInput((BaseModel<?>)obj);
@@ -171,6 +186,11 @@ public class ClpSerializer {
 		if (oldModelClassName.equals(
 					"com.liferay.training.parts.model.impl.PartImpl")) {
 			return translateOutputPart(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.liferay.training.parts.model.impl.PurchaseOrderImpl")) {
+			return translateOutputPurchaseOrder(oldModel);
 		}
 
 		return oldModel;
@@ -262,6 +282,11 @@ public class ClpSerializer {
 			return new com.liferay.training.parts.NoSuchPartException();
 		}
 
+		if (className.equals(
+					"com.liferay.training.parts.NoSuchPurchaseOrderException")) {
+			return new com.liferay.training.parts.NoSuchPurchaseOrderException();
+		}
+
 		return throwable;
 	}
 
@@ -281,6 +306,16 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setPartRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputPurchaseOrder(BaseModel<?> oldModel) {
+		PurchaseOrderClp newModel = new PurchaseOrderClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setPurchaseOrderRemoteModel(oldModel);
 
 		return newModel;
 	}

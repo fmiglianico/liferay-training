@@ -7,13 +7,14 @@ import com.liferay.portlet.asset.model.BaseAssetRendererFactory;
 import com.liferay.training.parts.model.Manufacturer;
 import com.liferay.training.parts.service.ManufacturerLocalServiceUtil;
 
+
 public class ManufacturerAssetRendererFactory extends BaseAssetRendererFactory {
 
 	@Override
 	public AssetRenderer getAssetRenderer(long classPK, int type)
 			throws PortalException, SystemException {
 		Manufacturer mfg = ManufacturerLocalServiceUtil.getManufacturer(classPK);
-		return new ManufacturerAssetRenderer(mfg);
+		return new ManufacturerAssetRenderer (mfg);
 	}
 
 	@Override
@@ -39,5 +40,5 @@ public class ManufacturerAssetRendererFactory extends BaseAssetRendererFactory {
 	public static final String CLASS_NAME = Manufacturer.class.getName();
 	public static final String TYPE = "manufacturer";
 	    
-	
+
 }

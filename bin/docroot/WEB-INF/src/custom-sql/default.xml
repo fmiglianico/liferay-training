@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+    <sql id="com.liferay.training.parts.service.persistence.PurchaseOrderFinder.countByPart">
+        <![CDATA[
+            SELECT
+                COUNT(*) AS COUNT_VALUE
+            FROM
+                Inventory_PurchaseOrder
+            WHERE
+                (Inventory_PurchaseOrder.partId = ?) AND
+                (Inventory_PurchaseOrder.closed = false)
+        ]]>
+    </sql>
+    <sql id="com.liferay.training.parts.service.persistence.PurchaseOrderFinder.findByUser">
+        <![CDATA[
+            SELECT
+                Inventory_PurchaseOrder.orderId as orderId,
+                Inventory_PurchaseOrder.orderDate as orderDate,
+               	Inventory_PurchaseOrder.partId as partId,
+                Inventory_Part.partNumber as partNumber,
+                Inventory_Part.name as partName,
+                Inventory_Part.manufacturerId as manufacturerId
+            FROM
+                Inventory_Part, Inventory_PurchaseOrder
+            WHERE
+                Inventory_PurchaseOrder.closed = false AND
+                (Inventory_PurchaseOrder.partId = Inventory_Part.partId) AND
+                (Inventory_Part.companyId = ?) AND
+                (Inventory_Part.groupId = ?) AND
+                (Inventory_PurchaseOrder.userId = ?)
+        ]]>
+    </sql>
+    
+    <sql id="com.liferay.training.parts.service.persistence.PurchaseOrderFinder.countByUser">
+        <![CDATA[
+            SELECT
+                COUNT(*) AS COUNT_VALUE
+            FROM
+                Inventory_PurchaseOrder
+                    INNER JOIN Inventory_Part
+                        ON (Inventory_Part.partId = Inventory_PurchaseOrder.partId)
+
+            WHERE
+                (Inventory_PurchaseOrder.closed = false) AND
+                (Inventory_Part.companyId = ?) AND
+                (Inventory_Part.groupId = ?) AND
+                (Inventory_PurchaseOrder.userId = ?)
+        ]]>
+    </sql>
+    	
+</custom-sql>
+
+	

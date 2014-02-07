@@ -34,7 +34,7 @@ import java.util.Date;
 public class PartCacheModel implements CacheModel<Part>, Serializable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -56,16 +56,6 @@ public class PartCacheModel implements CacheModel<Part>, Serializable {
 		sb.append(orderDate);
 		sb.append(", quantity=");
 		sb.append(quantity);
-		sb.append(", status=");
-		sb.append(status);
-		sb.append(", statusByUserId=");
-		sb.append(statusByUserId);
-		sb.append(", statusByUserName=");
-		sb.append(statusByUserName);
-		sb.append(", statusDate=");
-		sb.append(statusDate);
-		sb.append(", userName=");
-		sb.append(userName);
 		sb.append("}");
 
 		return sb.toString();
@@ -109,29 +99,6 @@ public class PartCacheModel implements CacheModel<Part>, Serializable {
 		}
 
 		partImpl.setQuantity(quantity);
-		partImpl.setStatus(status);
-		partImpl.setStatusByUserId(statusByUserId);
-
-		if (statusByUserName == null) {
-			partImpl.setStatusByUserName(StringPool.BLANK);
-		}
-		else {
-			partImpl.setStatusByUserName(statusByUserName);
-		}
-
-		if (statusDate == Long.MIN_VALUE) {
-			partImpl.setStatusDate(null);
-		}
-		else {
-			partImpl.setStatusDate(new Date(statusDate));
-		}
-
-		if (userName == null) {
-			partImpl.setUserName(StringPool.BLANK);
-		}
-		else {
-			partImpl.setUserName(userName);
-		}
 
 		partImpl.resetOriginalValues();
 
@@ -148,9 +115,4 @@ public class PartCacheModel implements CacheModel<Part>, Serializable {
 	public String partNumber;
 	public long orderDate;
 	public int quantity;
-	public int status;
-	public long statusByUserId;
-	public String statusByUserName;
-	public long statusDate;
-	public String userName;
 }

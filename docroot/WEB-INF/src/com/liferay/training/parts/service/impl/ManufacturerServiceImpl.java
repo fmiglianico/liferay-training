@@ -16,6 +16,7 @@ package com.liferay.training.parts.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.training.parts.model.Manufacturer;
 import com.liferay.training.parts.model.impl.ManufacturerImpl;
@@ -24,21 +25,26 @@ import com.liferay.training.parts.service.base.ManufacturerServiceBaseImpl;
 import java.util.List;
 
 /**
- * The implementation of the manufacturer remote service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.training.parts.service.ManufacturerService} interface.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
- * </p>
- *
+ * The implementation of the manufacturer remote service. <p> All custom service
+ * methods should be put in this class. Whenever methods are added, rerun
+ * ServiceBuilder to copy their definitions into the
+ * {@link com.liferay.training.parts.service.ManufacturerService} interface. <p>
+ * This is a remote service. Methods of this service are expected to have
+ * security checks based on the propagated JAAS credentials because this service
+ * can be accessed remotely. </p>
+ * 
  * @author Joe Bloggs
  * @see com.liferay.training.parts.service.base.ManufacturerServiceBaseImpl
  * @see com.liferay.training.parts.service.ManufacturerServiceUtil
  */
 public class ManufacturerServiceImpl extends ManufacturerServiceBaseImpl {
-	/**
+	/*
+	 * NOTE FOR DEVELOPERS: Never reference this interface directly. Always use
+	 * {@link com.liferay.training.parts.service.ManufacturerServiceUtil} to
+	 * access the manufacturer remote service.
+	 */
+	
+		/**
 	 * Adds the Manufacturer to the database incrementing the primary key
 	 * 
 	 * @throws PortalException
@@ -48,7 +54,11 @@ public class ManufacturerServiceImpl extends ManufacturerServiceBaseImpl {
 			long userId, String name, String emailAddress, String phoneNumber,
 			String website) throws SystemException, PortalException {
 
-		/* Permission Check Placeholder */
+				if (!getPermissionChecker().hasPermission(groupId,
+				"com.liferay.training.parts.model", groupId, "ADD_MANUFACTURER")) {
+			throw new PrincipalException();
+		}
+		
 
 		Manufacturer manufacturer = new ManufacturerImpl();
 		manufacturer.setCompanyId(companyId);
@@ -74,7 +84,11 @@ public class ManufacturerServiceImpl extends ManufacturerServiceBaseImpl {
 	public void deleteManufacturer(long groupId, long manufacturerId)
 			throws PortalException, SystemException {
 
-		/* Permission Check Placeholder */
+				if (!getPermissionChecker().hasPermission(groupId,
+				Manufacturer.class.getName(), groupId, "DELETE")) {
+			throw new PrincipalException();
+		}
+
 
 		manufacturerLocalService.deleteManufacturer(manufacturerId);
 	}
@@ -86,7 +100,11 @@ public class ManufacturerServiceImpl extends ManufacturerServiceBaseImpl {
 	public Manufacturer getManufacturer(long groupId, long manufacturerId)
 			throws PortalException, SystemException {
 
-		/* Permission Check Placeholder */
+/*		if (!getPermissionChecker().hasPermission(groupId,
+				Manufacturer.class.getName(), groupId, "VIEW")) {
+			throw new PrincipalException();
+		}
+*/
 
 		return manufacturerLocalService.getManufacturer(manufacturerId);
 	}

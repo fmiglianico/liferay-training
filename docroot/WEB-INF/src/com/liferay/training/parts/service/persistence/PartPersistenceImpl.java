@@ -53,6 +53,9 @@ import com.liferay.training.parts.NoSuchPartException;
 import com.liferay.training.parts.model.Part;
 import com.liferay.training.parts.model.impl.PartImpl;
 import com.liferay.training.parts.model.impl.PartModelImpl;
+import com.liferay.training.parts.service.persistence.ManufacturerPersistence;
+import com.liferay.training.parts.service.persistence.PartPersistence;
+import com.liferay.training.parts.service.persistence.PurchaseOrderPersistence;
 
 import java.io.Serializable;
 
@@ -246,53 +249,9 @@ public class PartPersistenceImpl extends BasePersistenceImpl<Part>
 		}
 	}
 
-	protected void cacheUniqueFindersCache(Part part) {
-		if (part.isNew()) {
-			Object[] args = new Object[] {
-					part.getUuid(), Long.valueOf(part.getGroupId())
-				};
-
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
-				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args, part);
-		}
-		else {
-			PartModelImpl partModelImpl = (PartModelImpl)part;
-
-			if ((partModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						part.getUuid(), Long.valueOf(part.getGroupId())
-					};
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
-					Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
-					part);
-			}
-		}
-	}
-
 	protected void clearUniqueFindersCache(Part part) {
-		PartModelImpl partModelImpl = (PartModelImpl)part;
-
-		Object[] args = new Object[] {
-				part.getUuid(), Long.valueOf(part.getGroupId())
-			};
-
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
-
-		if ((partModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-			args = new Object[] {
-					partModelImpl.getOriginalUuid(),
-					Long.valueOf(partModelImpl.getOriginalGroupId())
-				};
-
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
-		}
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
+			new Object[] { part.getUuid(), Long.valueOf(part.getGroupId()) });
 	}
 
 	/**
@@ -486,8 +445,28 @@ public class PartPersistenceImpl extends BasePersistenceImpl<Part>
 		EntityCacheUtil.putResult(PartModelImpl.ENTITY_CACHE_ENABLED,
 			PartImpl.class, part.getPrimaryKey(), part);
 
-		clearUniqueFindersCache(part);
-		cacheUniqueFindersCache(part);
+		if (isNew) {
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+				new Object[] { part.getUuid(), Long.valueOf(part.getGroupId()) },
+				part);
+		}
+		else {
+			if ((partModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						partModelImpl.getOriginalUuid(),
+						Long.valueOf(partModelImpl.getOriginalGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+					new Object[] { part.getUuid(), Long.valueOf(
+							part.getGroupId()) }, part);
+			}
+		}
 
 		return part;
 	}
@@ -512,11 +491,6 @@ public class PartPersistenceImpl extends BasePersistenceImpl<Part>
 		partImpl.setPartNumber(part.getPartNumber());
 		partImpl.setOrderDate(part.getOrderDate());
 		partImpl.setQuantity(part.getQuantity());
-		partImpl.setStatus(part.getStatus());
-		partImpl.setStatusByUserId(part.getStatusByUserId());
-		partImpl.setStatusByUserName(part.getStatusByUserName());
-		partImpl.setStatusDate(part.getStatusDate());
-		partImpl.setUserName(part.getUserName());
 
 		return partImpl;
 	}
@@ -3181,10 +3155,8 @@ public class PartPersistenceImpl extends BasePersistenceImpl<Part>
 				List<ModelListener<Part>> listenersList = new ArrayList<ModelListener<Part>>();
 
 				for (String listenerClassName : listenerClassNames) {
-					Class<?> clazz = getClass();
-
 					listenersList.add((ModelListener<Part>)InstanceFactory.newInstance(
-							clazz.getClassLoader(), listenerClassName));
+							listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
@@ -3205,6 +3177,8 @@ public class PartPersistenceImpl extends BasePersistenceImpl<Part>
 	protected ManufacturerPersistence manufacturerPersistence;
 	@BeanReference(type = PartPersistence.class)
 	protected PartPersistence partPersistence;
+	@BeanReference(type = PurchaseOrderPersistence.class)
+	protected PurchaseOrderPersistence purchaseOrderPersistence;
 	@BeanReference(type = ResourcePersistence.class)
 	protected ResourcePersistence resourcePersistence;
 	@BeanReference(type = UserPersistence.class)

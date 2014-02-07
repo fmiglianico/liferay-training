@@ -124,24 +124,24 @@ public class ManufacturerLocalServiceClp implements ManufacturerLocalService {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName21 = "getManufacturersByGroupId";
+		_methodName21 = "updateManufacturer";
 
-		_methodParameterTypes21 = new String[] { "long" };
-
-		_methodName22 = "getManufacturersByGroupId";
-
-		_methodParameterTypes22 = new String[] { "long", "int", "int" };
-
-		_methodName23 = "getManufacturersCountByGroupId";
-
-		_methodParameterTypes23 = new String[] { "long" };
-
-		_methodName24 = "updateManufacturer";
-
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes21 = new String[] {
 				"com.liferay.training.parts.model.Manufacturer",
 				"com.liferay.portal.service.ServiceContext"
 			};
+
+		_methodName22 = "getManufacturersByGroupId";
+
+		_methodParameterTypes22 = new String[] { "long" };
+
+		_methodName23 = "getManufacturersByGroupId";
+
+		_methodParameterTypes23 = new String[] { "long", "int", "int" };
+
+		_methodName24 = "getManufacturersCountByGroupId";
+
+		_methodParameterTypes24 = new String[] { "long" };
 
 		_methodName25 = "updateStatus";
 
@@ -760,90 +760,6 @@ public class ManufacturerLocalServiceClp implements ManufacturerLocalService {
 		return (com.liferay.training.parts.model.Manufacturer)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public java.util.List<com.liferay.training.parts.model.Manufacturer> getManufacturersByGroupId(
-		long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { groupId });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.util.List<com.liferay.training.parts.model.Manufacturer>)ClpSerializer.translateOutput(returnObj);
-	}
-
-	public java.util.List<com.liferay.training.parts.model.Manufacturer> getManufacturersByGroupId(
-		long groupId, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
-					new Object[] { groupId, start, end });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (java.util.List<com.liferay.training.parts.model.Manufacturer>)ClpSerializer.translateOutput(returnObj);
-	}
-
-	public int getManufacturersCountByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23, new Object[] { groupId });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return ((Integer)returnObj).intValue();
-	}
-
 	public com.liferay.training.parts.model.Manufacturer updateManufacturer(
 		com.liferay.training.parts.model.Manufacturer editedManufacturer,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -852,8 +768,8 @@ public class ManufacturerLocalServiceClp implements ManufacturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] {
 						ClpSerializer.translateInput(editedManufacturer),
 						
@@ -881,6 +797,90 @@ public class ManufacturerLocalServiceClp implements ManufacturerLocalService {
 		}
 
 		return (com.liferay.training.parts.model.Manufacturer)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.training.parts.model.Manufacturer> getManufacturersByGroupId(
+		long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { groupId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.training.parts.model.Manufacturer>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public java.util.List<com.liferay.training.parts.model.Manufacturer> getManufacturersByGroupId(
+		long groupId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
+					new Object[] { groupId, start, end });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.training.parts.model.Manufacturer>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public int getManufacturersCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24, new Object[] { groupId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
 	}
 
 	public com.liferay.training.parts.model.Manufacturer updateStatus(

@@ -276,6 +276,12 @@ public interface ManufacturerLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public com.liferay.training.parts.model.Manufacturer updateManufacturer(
+		com.liferay.training.parts.model.Manufacturer editedManufacturer,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	/**
 	* Gets a list with all the Manufacturers in a group
 	*/
@@ -298,12 +304,6 @@ public interface ManufacturerLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getManufacturersCountByGroupId(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
-
-	public com.liferay.training.parts.model.Manufacturer updateManufacturer(
-		com.liferay.training.parts.model.Manufacturer editedManufacturer,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.training.parts.model.Manufacturer updateStatus(
 		long userId, long manufacturerId, int status,

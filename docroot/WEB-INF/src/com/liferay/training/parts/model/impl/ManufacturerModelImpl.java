@@ -603,16 +603,13 @@ public class ManufacturerModelImpl extends BaseModelImpl<Manufacturer>
 
 	@Override
 	public Manufacturer toEscapedModel() {
-		if (_escapedModel == null) {
-			_escapedModel = (Manufacturer)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
+		if (_escapedModelProxy == null) {
+			_escapedModelProxy = (Manufacturer)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelProxyInterfaces,
+					new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModel;
-	}
-
-	public Manufacturer toUnescapedModel() {
-		return (Manufacturer)this;
+		return _escapedModelProxy;
 	}
 
 	@Override
@@ -653,15 +650,18 @@ public class ManufacturerModelImpl extends BaseModelImpl<Manufacturer>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof Manufacturer)) {
+		if (obj == null) {
 			return false;
 		}
 
-		Manufacturer manufacturer = (Manufacturer)obj;
+		Manufacturer manufacturer = null;
+
+		try {
+			manufacturer = (Manufacturer)obj;
+		}
+		catch (ClassCastException cce) {
+			return false;
+		}
 
 		long primaryKey = manufacturer.getPrimaryKey();
 
@@ -886,7 +886,7 @@ public class ManufacturerModelImpl extends BaseModelImpl<Manufacturer>
 	}
 
 	private static ClassLoader _classLoader = Manufacturer.class.getClassLoader();
-	private static Class<?>[] _escapedModelInterfaces = new Class[] {
+	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
 			Manufacturer.class
 		};
 	private String _uuid;
@@ -911,5 +911,5 @@ public class ManufacturerModelImpl extends BaseModelImpl<Manufacturer>
 	private Date _statusDate;
 	private String _userName;
 	private long _columnBitmask;
-	private Manufacturer _escapedModel;
+	private Manufacturer _escapedModelProxy;
 }

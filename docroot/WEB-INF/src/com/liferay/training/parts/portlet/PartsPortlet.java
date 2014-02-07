@@ -1,5 +1,7 @@
 package com.liferay.training.parts.portlet;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -13,6 +15,7 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.training.parts.model.Part;
 import com.liferay.training.parts.model.impl.PartImpl;
 import com.liferay.training.parts.service.PartLocalServiceUtil;
+import com.liferay.training.parts.service.PurchaseOrderLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.util.ArrayList;
@@ -22,7 +25,6 @@ import java.util.Map;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 
 /**
@@ -31,19 +33,22 @@ import javax.portlet.PortletRequest;
 public class PartsPortlet extends MVCPortlet {
 
 	/**
-	 * Convenience method to create a Part object out of the request. Used
-	 * by the Add / Edit methods.
-	 *
+	 * Convenience method to create a Part object out of the request. Used by
+	 * the Add / Edit methods.
+	 * 
 	 */
 	private Part partFromRequest(PortletRequest request) {
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay) request
+				.getAttribute(WebKeys.THEME_DISPLAY);
 
 		int orderDateMonth = ParamUtil.getInteger(request, "orderDateMonth");
 		int orderDateDay = ParamUtil.getInteger(request, "orderDateDay");
 		int orderDateYear = ParamUtil.getInteger(request, "orderDateYear");
 
-		Date orderDate = PortalUtil.getDate(orderDateMonth, orderDateDay, orderDateYear);
-		Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(request, "name");
+		Date orderDate = PortalUtil.getDate(orderDateMonth, orderDateDay,
+				orderDateYear);
+		Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
+				request, "name");
 
 		Part part = new PartImpl();
 
@@ -59,36 +64,47 @@ public class PartsPortlet extends MVCPortlet {
 
 		return part;
 	}
-	
+
 	/**
 	 * Adds a new part to the database.
 	 * 
 	 */
 	public void addPart(ActionRequest request, ActionResponse response)
-		throws Exception {
+			throws Exception {
 
-		ArrayList<String> errors = new ArrayList<String>();
+		ThemeDisplay themeDisplay = (ThemeDisplay) request
+				.getAttribute(WebKeys.THEME_DISPLAY);
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Part.class.getName(), request);
 
-		Part part = partFromRequest(request);
+		long groupId = themeDisplay.getScopeGroupId();
 
-		if (PartValidator.validatePart(part, errors)) {
-			
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(Part.class.getName(), request);
-			PartLocalServiceUtil.addPart(part, serviceContext);
-	    
+		if (themeDisplay.getPermissionChecker().hasPermission(groupId,
+				"com.liferay.training.parts.model", groupId, "ADD_PART")) {
 
-			SessionMessages.add(request, "part-added");
+			ArrayList<String> errors = new ArrayList<String>();
 
-			sendRedirect(request, response);
-		}
-		else {
-			for (String error : errors) {
-				SessionErrors.add(request, error);
+			Part part = partFromRequest(request);
+
+			if (PartValidator.validatePart(part, errors)) {
+
+				PartLocalServiceUtil.addPart(part, serviceContext);
+
+				SessionMessages.add(request, "part-added");
+
+				sendRedirect(request, response);
+			} else {
+				for (String error : errors) {
+					SessionErrors.add(request, error);
+				}
+
+				PortalUtil.copyRequestParameters(request, response);
+
+				response.setRenderParameter("mvcPath",
+						"/html/parts/edit_part.jsp");
 			}
-
-			PortalUtil.copyRequestParameters(request, response);
-
-			response.setRenderParameter("mvcPath", "/html/parts/edit_part.jsp");
+		} else {
+			SessionErrors.add(request, "permission-error");
+			sendRedirect(request, response);
 		}
 	}
 
@@ -96,83 +112,102 @@ public class PartsPortlet extends MVCPortlet {
 	 * Deletes a part from the database.
 	 * 
 	 */
-	public void deletePart(ActionRequest request, ActionResponse response)
-		throws Exception {
+ 	public void deletePart(ActionRequest request, ActionResponse response)
+ 		throws Exception {
 
-		long partId = ParamUtil.getLong(request, "partId");
+ 		ThemeDisplay themeDisplay =
+ 			(ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
+ 		long groupId = themeDisplay.getScopeGroupId();
+ 		long partId = ParamUtil.getLong(request, "partId");
 
-		if (Validator.isNotNull(partId)) {
-			PartLocalServiceUtil.deletePart(partId);
+ 		if (themeDisplay.getPermissionChecker().hasPermission(
+ 			groupId, "com.liferay.training.parts.model.Part", partId, "DELETE")) {
 
-			SessionMessages.add(request, "part-deleted");
+ 			int numOrders =
+ 				PurchaseOrderLocalServiceUtil.countByPart(partId, false);
 
-			sendRedirect(request, response);
-		}
-		else {
-			SessionErrors.add(request, "error-deleting");
-		}
-	}
+ 			if (Validator.isNotNull(partId) && numOrders == 0) {
+ 				PartLocalServiceUtil.deletePart(partId);
 
+ 				SessionMessages.add(request, "part-deleted");
+
+ 				sendRedirect(request, response);
+ 			}
+ 			else if (Validator.isNotNull(partId) && numOrders > 0) {
+ 				SessionErrors.add(request, "outstanding-parts-error-deleting");
+ 				sendRedirect(request, response);
+ 			}
+ 			else {
+ 				SessionErrors.add(request, "deletion-error");
+ 				sendRedirect(request, response);
+ 			}
+
+ 		}
+ 		else {
+ 			SessionErrors.add(request, "permission-error");
+ 			sendRedirect(request, response);
+ 		}
+ 	}
+	
+        
 	/**
 	 * Updates the database record of an existing part.
-	 *
+	 * 
 	 */
 	public void updatePart(ActionRequest request, ActionResponse response)
-		throws Exception {
+			throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay) request
+				.getAttribute(WebKeys.THEME_DISPLAY);
+
+		long groupId = themeDisplay.getScopeGroupId();
 
 		Part part = partFromRequest(request);
 
-		ArrayList<String> errors = new ArrayList<String>();
+		if (themeDisplay.getPermissionChecker().hasPermission(groupId,
+				"com.liferay.training.parts.model.Part",
+				part.getPartId(), "UPDATE")) {
 
-		if (PartValidator.validatePart(part, errors)) {
-			PartLocalServiceUtil.updatePart(part);
+			ArrayList<String> errors = new ArrayList<String>();
 
-			SessionMessages.add(request, "part-updated");
+			if (PartValidator.validatePart(part, errors)) {
+				PartLocalServiceUtil.updatePart(part);
 
+				SessionMessages.add(request, "part-updated");
+
+				sendRedirect(request, response);
+			} else {
+				for (String error : errors) {
+					SessionErrors.add(request, error);
+				}
+
+				PortalUtil.copyRequestParameters(request, response);
+
+				response.setRenderParameter("mvcPath",
+						"/html/parts/edit_part.jsp");
+			}
+		} else {
+			SessionErrors.add(request, "permission-error");
 			sendRedirect(request, response);
 		}
-		else {
-			for (String error : errors) {
-				SessionErrors.add(request, error);
-			}
-
-			PortalUtil.copyRequestParameters(request, response);
-
-			response.setRenderParameter("mvcPath", "/html/parts/edit_part.jsp");			
-		}
 	}
+	
+	public void order(ActionRequest actionRequest, ActionResponse actionResponse)
+        throws Exception {
+		
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
 
-	/**
-	 * Sets the preferences for how many parts can be viewed per
-	 * page and the format for the date.
-	 * 
-	 */
-	public void setPartPref(ActionRequest request, ActionResponse response)
-		throws Exception {
+        long partId = ParamUtil.getLong(actionRequest, "partId");
+        long userId = ParamUtil.getLong(actionRequest, "userId");
+        long companyId = themeDisplay.getCompanyId();
+        long groupId = themeDisplay.getScopeGroupId();
+        
+        PurchaseOrderLocalServiceUtil.orderPart(partId, userId, companyId, groupId);
 
-		String rowsPerPage = ParamUtil.getString(request, "rowsPerPage");
-		String dateFormat = ParamUtil.getString(request, "dateFormat");
-
-		ArrayList<String> errors = new ArrayList<String>();
-
-		if (PartValidator.validatePreferences(rowsPerPage, dateFormat, errors)) {
-			PortletPreferences prefs = request.getPreferences();
-
-			prefs.setValue("rowsPerPage", rowsPerPage);
-			prefs.setValue("dateFormat", dateFormat);
-
-			prefs.store();
-		}
-		else {
-			for (String error : errors) {
-				SessionErrors.add(request, error);
-			}
-		}
-	}
+    }
 
 	
-	
-	//private static Log _log = LogFactoryUtil.getLog(PartsPortlet.class);
 
+	private static Log _log = LogFactoryUtil.getLog(PartsPortlet.class);
 
 }

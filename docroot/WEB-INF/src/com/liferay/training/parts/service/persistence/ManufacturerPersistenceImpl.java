@@ -47,11 +47,15 @@ import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import com.liferay.portlet.asset.service.persistence.AssetEntryPersistence;
+import com.liferay.portlet.social.service.persistence.SocialActivityPersistence;
 
 import com.liferay.training.parts.NoSuchManufacturerException;
 import com.liferay.training.parts.model.Manufacturer;
 import com.liferay.training.parts.model.impl.ManufacturerImpl;
 import com.liferay.training.parts.model.impl.ManufacturerModelImpl;
+import com.liferay.training.parts.service.persistence.ManufacturerPersistence;
+import com.liferay.training.parts.service.persistence.PartPersistence;
+import com.liferay.training.parts.service.persistence.PurchaseOrderPersistence;
 
 import java.io.Serializable;
 
@@ -245,56 +249,11 @@ public class ManufacturerPersistenceImpl extends BasePersistenceImpl<Manufacture
 		}
 	}
 
-	protected void cacheUniqueFindersCache(Manufacturer manufacturer) {
-		if (manufacturer.isNew()) {
-			Object[] args = new Object[] {
-					manufacturer.getUuid(),
-					Long.valueOf(manufacturer.getGroupId())
-				};
-
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
-				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
-				manufacturer);
-		}
-		else {
-			ManufacturerModelImpl manufacturerModelImpl = (ManufacturerModelImpl)manufacturer;
-
-			if ((manufacturerModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						manufacturer.getUuid(),
-						Long.valueOf(manufacturer.getGroupId())
-					};
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
-					Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
-					manufacturer);
-			}
-		}
-	}
-
 	protected void clearUniqueFindersCache(Manufacturer manufacturer) {
-		ManufacturerModelImpl manufacturerModelImpl = (ManufacturerModelImpl)manufacturer;
-
-		Object[] args = new Object[] {
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
+			new Object[] {
 				manufacturer.getUuid(), Long.valueOf(manufacturer.getGroupId())
-			};
-
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
-
-		if ((manufacturerModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-			args = new Object[] {
-					manufacturerModelImpl.getOriginalUuid(),
-					Long.valueOf(manufacturerModelImpl.getOriginalGroupId())
-				};
-
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
-		}
+			});
 	}
 
 	/**
@@ -494,8 +453,32 @@ public class ManufacturerPersistenceImpl extends BasePersistenceImpl<Manufacture
 		EntityCacheUtil.putResult(ManufacturerModelImpl.ENTITY_CACHE_ENABLED,
 			ManufacturerImpl.class, manufacturer.getPrimaryKey(), manufacturer);
 
-		clearUniqueFindersCache(manufacturer);
-		cacheUniqueFindersCache(manufacturer);
+		if (isNew) {
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+				new Object[] {
+					manufacturer.getUuid(),
+					Long.valueOf(manufacturer.getGroupId())
+				}, manufacturer);
+		}
+		else {
+			if ((manufacturerModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						manufacturerModelImpl.getOriginalUuid(),
+						Long.valueOf(manufacturerModelImpl.getOriginalGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+					new Object[] {
+						manufacturer.getUuid(),
+						Long.valueOf(manufacturer.getGroupId())
+					}, manufacturer);
+			}
+		}
 
 		return manufacturer;
 	}
@@ -3201,10 +3184,8 @@ public class ManufacturerPersistenceImpl extends BasePersistenceImpl<Manufacture
 				List<ModelListener<Manufacturer>> listenersList = new ArrayList<ModelListener<Manufacturer>>();
 
 				for (String listenerClassName : listenerClassNames) {
-					Class<?> clazz = getClass();
-
 					listenersList.add((ModelListener<Manufacturer>)InstanceFactory.newInstance(
-							clazz.getClassLoader(), listenerClassName));
+							listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
@@ -3225,12 +3206,16 @@ public class ManufacturerPersistenceImpl extends BasePersistenceImpl<Manufacture
 	protected ManufacturerPersistence manufacturerPersistence;
 	@BeanReference(type = PartPersistence.class)
 	protected PartPersistence partPersistence;
+	@BeanReference(type = PurchaseOrderPersistence.class)
+	protected PurchaseOrderPersistence purchaseOrderPersistence;
 	@BeanReference(type = ResourcePersistence.class)
 	protected ResourcePersistence resourcePersistence;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	@BeanReference(type = AssetEntryPersistence.class)
 	protected AssetEntryPersistence assetEntryPersistence;
+	@BeanReference(type = SocialActivityPersistence.class)
+	protected SocialActivityPersistence socialActivityPersistence;
 	private static final String _SQL_SELECT_MANUFACTURER = "SELECT manufacturer FROM Manufacturer manufacturer";
 	private static final String _SQL_SELECT_MANUFACTURER_WHERE = "SELECT manufacturer FROM Manufacturer manufacturer WHERE ";
 	private static final String _SQL_COUNT_MANUFACTURER = "SELECT COUNT(manufacturer) FROM Manufacturer manufacturer";

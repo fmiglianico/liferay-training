@@ -14,7 +14,6 @@
 
 package com.liferay.training.parts.model;
 
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -56,11 +55,6 @@ public class PartWrapper implements Part, ModelWrapper<Part> {
 		attributes.put("partNumber", getPartNumber());
 		attributes.put("orderDate", getOrderDate());
 		attributes.put("quantity", getQuantity());
-		attributes.put("status", getStatus());
-		attributes.put("statusByUserId", getStatusByUserId());
-		attributes.put("statusByUserName", getStatusByUserName());
-		attributes.put("statusDate", getStatusDate());
-		attributes.put("userName", getUserName());
 
 		return attributes;
 	}
@@ -124,36 +118,6 @@ public class PartWrapper implements Part, ModelWrapper<Part> {
 
 		if (quantity != null) {
 			setQuantity(quantity);
-		}
-
-		Integer status = (Integer)attributes.get("status");
-
-		if (status != null) {
-			setStatus(status);
-		}
-
-		Long statusByUserId = (Long)attributes.get("statusByUserId");
-
-		if (statusByUserId != null) {
-			setStatusByUserId(statusByUserId);
-		}
-
-		String statusByUserName = (String)attributes.get("statusByUserName");
-
-		if (statusByUserName != null) {
-			setStatusByUserName(statusByUserName);
-		}
-
-		Date statusDate = (Date)attributes.get("statusDate");
-
-		if (statusDate != null) {
-			setStatusDate(statusDate);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 	}
 
@@ -483,195 +447,6 @@ public class PartWrapper implements Part, ModelWrapper<Part> {
 		_part.setQuantity(quantity);
 	}
 
-	/**
-	* Returns the status of this part.
-	*
-	* @return the status of this part
-	*/
-	public int getStatus() {
-		return _part.getStatus();
-	}
-
-	/**
-	* Sets the status of this part.
-	*
-	* @param status the status of this part
-	*/
-	public void setStatus(int status) {
-		_part.setStatus(status);
-	}
-
-	/**
-	* Returns the status by user ID of this part.
-	*
-	* @return the status by user ID of this part
-	*/
-	public long getStatusByUserId() {
-		return _part.getStatusByUserId();
-	}
-
-	/**
-	* Sets the status by user ID of this part.
-	*
-	* @param statusByUserId the status by user ID of this part
-	*/
-	public void setStatusByUserId(long statusByUserId) {
-		_part.setStatusByUserId(statusByUserId);
-	}
-
-	/**
-	* Returns the status by user uuid of this part.
-	*
-	* @return the status by user uuid of this part
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.lang.String getStatusByUserUuid()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _part.getStatusByUserUuid();
-	}
-
-	/**
-	* Sets the status by user uuid of this part.
-	*
-	* @param statusByUserUuid the status by user uuid of this part
-	*/
-	public void setStatusByUserUuid(java.lang.String statusByUserUuid) {
-		_part.setStatusByUserUuid(statusByUserUuid);
-	}
-
-	/**
-	* Returns the status by user name of this part.
-	*
-	* @return the status by user name of this part
-	*/
-	public java.lang.String getStatusByUserName() {
-		return _part.getStatusByUserName();
-	}
-
-	/**
-	* Sets the status by user name of this part.
-	*
-	* @param statusByUserName the status by user name of this part
-	*/
-	public void setStatusByUserName(java.lang.String statusByUserName) {
-		_part.setStatusByUserName(statusByUserName);
-	}
-
-	/**
-	* Returns the status date of this part.
-	*
-	* @return the status date of this part
-	*/
-	public java.util.Date getStatusDate() {
-		return _part.getStatusDate();
-	}
-
-	/**
-	* Sets the status date of this part.
-	*
-	* @param statusDate the status date of this part
-	*/
-	public void setStatusDate(java.util.Date statusDate) {
-		_part.setStatusDate(statusDate);
-	}
-
-	/**
-	* Returns the user name of this part.
-	*
-	* @return the user name of this part
-	*/
-	public java.lang.String getUserName() {
-		return _part.getUserName();
-	}
-
-	/**
-	* Sets the user name of this part.
-	*
-	* @param userName the user name of this part
-	*/
-	public void setUserName(java.lang.String userName) {
-		_part.setUserName(userName);
-	}
-
-	/**
-	* @deprecated Renamed to {@link #isApproved()}
-	*/
-	public boolean getApproved() {
-		return _part.getApproved();
-	}
-
-	/**
-	* Returns <code>true</code> if this part is approved.
-	*
-	* @return <code>true</code> if this part is approved; <code>false</code> otherwise
-	*/
-	public boolean isApproved() {
-		return _part.isApproved();
-	}
-
-	/**
-	* Returns <code>true</code> if this part is denied.
-	*
-	* @return <code>true</code> if this part is denied; <code>false</code> otherwise
-	*/
-	public boolean isDenied() {
-		return _part.isDenied();
-	}
-
-	/**
-	* Returns <code>true</code> if this part is a draft.
-	*
-	* @return <code>true</code> if this part is a draft; <code>false</code> otherwise
-	*/
-	public boolean isDraft() {
-		return _part.isDraft();
-	}
-
-	/**
-	* Returns <code>true</code> if this part is expired.
-	*
-	* @return <code>true</code> if this part is expired; <code>false</code> otherwise
-	*/
-	public boolean isExpired() {
-		return _part.isExpired();
-	}
-
-	/**
-	* Returns <code>true</code> if this part is inactive.
-	*
-	* @return <code>true</code> if this part is inactive; <code>false</code> otherwise
-	*/
-	public boolean isInactive() {
-		return _part.isInactive();
-	}
-
-	/**
-	* Returns <code>true</code> if this part is incomplete.
-	*
-	* @return <code>true</code> if this part is incomplete; <code>false</code> otherwise
-	*/
-	public boolean isIncomplete() {
-		return _part.isIncomplete();
-	}
-
-	/**
-	* Returns <code>true</code> if this part is pending.
-	*
-	* @return <code>true</code> if this part is pending; <code>false</code> otherwise
-	*/
-	public boolean isPending() {
-		return _part.isPending();
-	}
-
-	/**
-	* Returns <code>true</code> if this part is scheduled.
-	*
-	* @return <code>true</code> if this part is scheduled; <code>false</code> otherwise
-	*/
-	public boolean isScheduled() {
-		return _part.isScheduled();
-	}
-
 	public boolean isNew() {
 		return _part.isNew();
 	}
@@ -737,10 +512,6 @@ public class PartWrapper implements Part, ModelWrapper<Part> {
 		return new PartWrapper(_part.toEscapedModel());
 	}
 
-	public com.liferay.training.parts.model.Part toUnescapedModel() {
-		return new PartWrapper(_part.toUnescapedModel());
-	}
-
 	@Override
 	public java.lang.String toString() {
 		return _part.toString();
@@ -753,25 +524,6 @@ public class PartWrapper implements Part, ModelWrapper<Part> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_part.persist();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof PartWrapper)) {
-			return false;
-		}
-
-		PartWrapper partWrapper = (PartWrapper)obj;
-
-		if (Validator.equals(_part, partWrapper._part)) {
-			return true;
-		}
-
-		return false;
 	}
 
 	/**

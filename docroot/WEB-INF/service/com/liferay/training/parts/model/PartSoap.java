@@ -21,10 +21,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * This class is used by SOAP remote services, specifically {@link com.liferay.training.parts.service.http.PartServiceSoap}.
+ * This class is used by SOAP remote services.
  *
  * @author    Joe Bloggs
- * @see       com.liferay.training.parts.service.http.PartServiceSoap
  * @generated
  */
 public class PartSoap implements Serializable {
@@ -41,11 +40,6 @@ public class PartSoap implements Serializable {
 		soapModel.setPartNumber(model.getPartNumber());
 		soapModel.setOrderDate(model.getOrderDate());
 		soapModel.setQuantity(model.getQuantity());
-		soapModel.setStatus(model.getStatus());
-		soapModel.setStatusByUserId(model.getStatusByUserId());
-		soapModel.setStatusByUserName(model.getStatusByUserName());
-		soapModel.setStatusDate(model.getStatusDate());
-		soapModel.setUserName(model.getUserName());
 
 		return soapModel;
 	}
@@ -178,46 +172,6 @@ public class PartSoap implements Serializable {
 		_quantity = quantity;
 	}
 
-	public int getStatus() {
-		return _status;
-	}
-
-	public void setStatus(int status) {
-		_status = status;
-	}
-
-	public long getStatusByUserId() {
-		return _statusByUserId;
-	}
-
-	public void setStatusByUserId(long statusByUserId) {
-		_statusByUserId = statusByUserId;
-	}
-
-	public String getStatusByUserName() {
-		return _statusByUserName;
-	}
-
-	public void setStatusByUserName(String statusByUserName) {
-		_statusByUserName = statusByUserName;
-	}
-
-	public Date getStatusDate() {
-		return _statusDate;
-	}
-
-	public void setStatusDate(Date statusDate) {
-		_statusDate = statusDate;
-	}
-
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
 	private String _uuid;
 	private long _partId;
 	private long _companyId;
@@ -228,9 +182,4 @@ public class PartSoap implements Serializable {
 	private String _partNumber;
 	private Date _orderDate;
 	private int _quantity;
-	private int _status;
-	private long _statusByUserId;
-	private String _statusByUserName;
-	private Date _statusDate;
-	private String _userName;
 }

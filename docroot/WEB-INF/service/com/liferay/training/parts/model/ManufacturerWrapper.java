@@ -14,7 +14,6 @@
 
 package com.liferay.training.parts.model;
 
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -600,10 +599,6 @@ public class ManufacturerWrapper implements Manufacturer,
 		return new ManufacturerWrapper(_manufacturer.toEscapedModel());
 	}
 
-	public com.liferay.training.parts.model.Manufacturer toUnescapedModel() {
-		return new ManufacturerWrapper(_manufacturer.toUnescapedModel());
-	}
-
 	@Override
 	public java.lang.String toString() {
 		return _manufacturer.toString();
@@ -616,25 +611,6 @@ public class ManufacturerWrapper implements Manufacturer,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_manufacturer.persist();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof ManufacturerWrapper)) {
-			return false;
-		}
-
-		ManufacturerWrapper manufacturerWrapper = (ManufacturerWrapper)obj;
-
-		if (Validator.equals(_manufacturer, manufacturerWrapper._manufacturer)) {
-			return true;
-		}
-
-		return false;
 	}
 
 	/**

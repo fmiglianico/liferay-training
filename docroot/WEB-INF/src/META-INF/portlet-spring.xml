@@ -5,6 +5,8 @@
 	<bean id="com.liferay.training.parts.service.ManufacturerService" class="com.liferay.training.parts.service.impl.ManufacturerServiceImpl" />
 	<bean id="com.liferay.training.parts.service.persistence.ManufacturerPersistence" class="com.liferay.training.parts.service.persistence.ManufacturerPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.training.parts.service.PartLocalService" class="com.liferay.training.parts.service.impl.PartLocalServiceImpl" />
-	<bean id="com.liferay.training.parts.service.PartService" class="com.liferay.training.parts.service.impl.PartServiceImpl" />
 	<bean id="com.liferay.training.parts.service.persistence.PartPersistence" class="com.liferay.training.parts.service.persistence.PartPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.training.parts.service.PurchaseOrderLocalService" class="com.liferay.training.parts.service.impl.PurchaseOrderLocalServiceImpl" />
+	<bean id="com.liferay.training.parts.service.persistence.PurchaseOrderPersistence" class="com.liferay.training.parts.service.persistence.PurchaseOrderPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.training.parts.service.persistence.PurchaseOrderFinder" class="com.liferay.training.parts.service.persistence.PurchaseOrderFinderImpl" parent="basePersistence" />
 </beans>

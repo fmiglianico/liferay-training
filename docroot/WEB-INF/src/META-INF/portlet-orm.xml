@@ -50,19 +50,28 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="quantity" />
-			<basic name="status" />
-			<basic name="statusByUserId" />
-			<basic name="statusByUserName" />
-			<basic name="statusDate">
-				<temporal>TIMESTAMP</temporal>
-			</basic>
-			<basic name="userName" />
 			<transient name="modelAttributes" />
 			<transient name="nameCurrentLanguageId" />
 			<transient name="nameMap" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
-			<transient name="statusByUserUuid" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.training.parts.model.impl.PurchaseOrderModelImpl">
+		<attributes>
+			<id name="orderId" />
+			<basic name="companyId" />
+			<basic name="groupId" />
+			<basic name="partId" />
+			<basic name="userId" />
+			<basic name="orderDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="closed" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
@@ -73,5 +82,13 @@
 	<entity class="com.liferay.training.parts.model.impl.PartImpl" name="Part">
 		<table name="Inventory_Part" />
 		<attributes />
+	</entity>
+	<entity class="com.liferay.training.parts.model.impl.PurchaseOrderImpl" name="PurchaseOrder">
+		<table name="Inventory_PurchaseOrder" />
+		<attributes>
+			<transient name="manufacturerId" />
+			<transient name="partName" />
+			<transient name="partNumber" />
+		</attributes>
 	</entity>
 </entity-mappings>

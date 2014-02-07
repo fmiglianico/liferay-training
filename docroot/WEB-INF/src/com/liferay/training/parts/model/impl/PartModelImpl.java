@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
@@ -37,16 +36,13 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import com.liferay.training.parts.model.Part;
 import com.liferay.training.parts.model.PartModel;
-import com.liferay.training.parts.model.PartSoap;
 
 import java.io.Serializable;
 
 import java.sql.Types;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -63,7 +59,6 @@ import java.util.Map;
  * @see com.liferay.training.parts.model.PartModel
  * @generated
  */
-@JSON(strict = true)
 public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -81,14 +76,9 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 			{ "name", Types.VARCHAR },
 			{ "partNumber", Types.VARCHAR },
 			{ "orderDate", Types.TIMESTAMP },
-			{ "quantity", Types.INTEGER },
-			{ "status", Types.INTEGER },
-			{ "statusByUserId", Types.BIGINT },
-			{ "statusByUserName", Types.VARCHAR },
-			{ "statusDate", Types.TIMESTAMP },
-			{ "userName", Types.VARCHAR }
+			{ "quantity", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table Inventory_Part (uuid_ VARCHAR(75) null,partId LONG not null primary key,companyId LONG,groupId LONG,userId LONG,manufacturerId LONG,name STRING null,partNumber VARCHAR(75) null,orderDate DATE null,quantity INTEGER,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null,userName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table Inventory_Part (uuid_ VARCHAR(75) null,partId LONG not null primary key,companyId LONG,groupId LONG,userId LONG,manufacturerId LONG,name STRING null,partNumber VARCHAR(75) null,orderDate DATE null,quantity INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table Inventory_Part";
 	public static final String ORDER_BY_JPQL = " ORDER BY part.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY Inventory_Part.name ASC";
@@ -107,59 +97,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 	public static long GROUPID_COLUMN_BITMASK = 1L;
 	public static long MANUFACTURERID_COLUMN_BITMASK = 2L;
 	public static long UUID_COLUMN_BITMASK = 4L;
-
-	/**
-	 * Converts the soap model instance into a normal model instance.
-	 *
-	 * @param soapModel the soap model instance to convert
-	 * @return the normal model instance
-	 */
-	public static Part toModel(PartSoap soapModel) {
-		if (soapModel == null) {
-			return null;
-		}
-
-		Part model = new PartImpl();
-
-		model.setUuid(soapModel.getUuid());
-		model.setPartId(soapModel.getPartId());
-		model.setCompanyId(soapModel.getCompanyId());
-		model.setGroupId(soapModel.getGroupId());
-		model.setUserId(soapModel.getUserId());
-		model.setManufacturerId(soapModel.getManufacturerId());
-		model.setName(soapModel.getName());
-		model.setPartNumber(soapModel.getPartNumber());
-		model.setOrderDate(soapModel.getOrderDate());
-		model.setQuantity(soapModel.getQuantity());
-		model.setStatus(soapModel.getStatus());
-		model.setStatusByUserId(soapModel.getStatusByUserId());
-		model.setStatusByUserName(soapModel.getStatusByUserName());
-		model.setStatusDate(soapModel.getStatusDate());
-		model.setUserName(soapModel.getUserName());
-
-		return model;
-	}
-
-	/**
-	 * Converts the soap model instances into normal model instances.
-	 *
-	 * @param soapModels the soap model instances to convert
-	 * @return the normal model instances
-	 */
-	public static List<Part> toModels(PartSoap[] soapModels) {
-		if (soapModels == null) {
-			return null;
-		}
-
-		List<Part> models = new ArrayList<Part>(soapModels.length);
-
-		for (PartSoap soapModel : soapModels) {
-			models.add(toModel(soapModel));
-		}
-
-		return models;
-	}
-
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.training.parts.model.Part"));
 
@@ -204,11 +141,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		attributes.put("partNumber", getPartNumber());
 		attributes.put("orderDate", getOrderDate());
 		attributes.put("quantity", getQuantity());
-		attributes.put("status", getStatus());
-		attributes.put("statusByUserId", getStatusByUserId());
-		attributes.put("statusByUserName", getStatusByUserName());
-		attributes.put("statusDate", getStatusDate());
-		attributes.put("userName", getUserName());
 
 		return attributes;
 	}
@@ -274,39 +206,8 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		if (quantity != null) {
 			setQuantity(quantity);
 		}
-
-		Integer status = (Integer)attributes.get("status");
-
-		if (status != null) {
-			setStatus(status);
-		}
-
-		Long statusByUserId = (Long)attributes.get("statusByUserId");
-
-		if (statusByUserId != null) {
-			setStatusByUserId(statusByUserId);
-		}
-
-		String statusByUserName = (String)attributes.get("statusByUserName");
-
-		if (statusByUserName != null) {
-			setStatusByUserName(statusByUserName);
-		}
-
-		Date statusDate = (Date)attributes.get("statusDate");
-
-		if (statusDate != null) {
-			setStatusDate(statusDate);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
-		}
 	}
 
-	@JSON
 	public String getUuid() {
 		if (_uuid == null) {
 			return StringPool.BLANK;
@@ -328,7 +229,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		return GetterUtil.getString(_originalUuid);
 	}
 
-	@JSON
 	public long getPartId() {
 		return _partId;
 	}
@@ -337,7 +237,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		_partId = partId;
 	}
 
-	@JSON
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -346,7 +245,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		_companyId = companyId;
 	}
 
-	@JSON
 	public long getGroupId() {
 		return _groupId;
 	}
@@ -367,7 +265,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		return _originalGroupId;
 	}
 
-	@JSON
 	public long getUserId() {
 		return _userId;
 	}
@@ -384,7 +281,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		_userUuid = userUuid;
 	}
 
-	@JSON
 	public long getManufacturerId() {
 		return _manufacturerId;
 	}
@@ -405,7 +301,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		return _originalManufacturerId;
 	}
 
-	@JSON
 	public String getName() {
 		if (_name == null) {
 			return StringPool.BLANK;
@@ -497,7 +392,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		}
 	}
 
-	@JSON
 	public String getPartNumber() {
 		if (_partNumber == null) {
 			return StringPool.BLANK;
@@ -511,7 +405,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		_partNumber = partNumber;
 	}
 
-	@JSON
 	public Date getOrderDate() {
 		return _orderDate;
 	}
@@ -520,157 +413,12 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		_orderDate = orderDate;
 	}
 
-	@JSON
 	public int getQuantity() {
 		return _quantity;
 	}
 
 	public void setQuantity(int quantity) {
 		_quantity = quantity;
-	}
-
-	@JSON
-	public int getStatus() {
-		return _status;
-	}
-
-	public void setStatus(int status) {
-		_status = status;
-	}
-
-	@JSON
-	public long getStatusByUserId() {
-		return _statusByUserId;
-	}
-
-	public void setStatusByUserId(long statusByUserId) {
-		_statusByUserId = statusByUserId;
-	}
-
-	public String getStatusByUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getStatusByUserId(), "uuid",
-			_statusByUserUuid);
-	}
-
-	public void setStatusByUserUuid(String statusByUserUuid) {
-		_statusByUserUuid = statusByUserUuid;
-	}
-
-	@JSON
-	public String getStatusByUserName() {
-		if (_statusByUserName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _statusByUserName;
-		}
-	}
-
-	public void setStatusByUserName(String statusByUserName) {
-		_statusByUserName = statusByUserName;
-	}
-
-	@JSON
-	public Date getStatusDate() {
-		return _statusDate;
-	}
-
-	public void setStatusDate(Date statusDate) {
-		_statusDate = statusDate;
-	}
-
-	@JSON
-	public String getUserName() {
-		if (_userName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _userName;
-		}
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
-	/**
-	 * @deprecated {@link #isApproved}
-	 */
-	public boolean getApproved() {
-		return isApproved();
-	}
-
-	public boolean isApproved() {
-		if (getStatus() == WorkflowConstants.STATUS_APPROVED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isDenied() {
-		if (getStatus() == WorkflowConstants.STATUS_DENIED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isDraft() {
-		if ((getStatus() == WorkflowConstants.STATUS_DRAFT) ||
-				(getStatus() == WorkflowConstants.STATUS_DRAFT_FROM_APPROVED)) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isExpired() {
-		if (getStatus() == WorkflowConstants.STATUS_EXPIRED) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isInactive() {
-		if (getStatus() == WorkflowConstants.STATUS_INACTIVE) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isIncomplete() {
-		if (getStatus() == WorkflowConstants.STATUS_INCOMPLETE) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isPending() {
-		if (getStatus() == WorkflowConstants.STATUS_PENDING) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
-	public boolean isScheduled() {
-		if (getStatus() == WorkflowConstants.STATUS_SCHEDULED) {
-			return true;
-		}
-		else {
-			return false;
-		}
 	}
 
 	public long getColumnBitmask() {
@@ -699,16 +447,13 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 
 	@Override
 	public Part toEscapedModel() {
-		if (_escapedModel == null) {
-			_escapedModel = (Part)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
+		if (_escapedModelProxy == null) {
+			_escapedModelProxy = (Part)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelProxyInterfaces,
+					new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModel;
-	}
-
-	public Part toUnescapedModel() {
-		return (Part)this;
+		return _escapedModelProxy;
 	}
 
 	@Override
@@ -725,11 +470,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		partImpl.setPartNumber(getPartNumber());
 		partImpl.setOrderDate(getOrderDate());
 		partImpl.setQuantity(getQuantity());
-		partImpl.setStatus(getStatus());
-		partImpl.setStatusByUserId(getStatusByUserId());
-		partImpl.setStatusByUserName(getStatusByUserName());
-		partImpl.setStatusDate(getStatusDate());
-		partImpl.setUserName(getUserName());
 
 		partImpl.resetOriginalValues();
 
@@ -750,15 +490,18 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof Part)) {
+		if (obj == null) {
 			return false;
 		}
 
-		Part part = (Part)obj;
+		Part part = null;
+
+		try {
+			part = (Part)obj;
+		}
+		catch (ClassCastException cce) {
+			return false;
+		}
 
 		long primaryKey = part.getPrimaryKey();
 
@@ -841,41 +584,12 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 
 		partCacheModel.quantity = getQuantity();
 
-		partCacheModel.status = getStatus();
-
-		partCacheModel.statusByUserId = getStatusByUserId();
-
-		partCacheModel.statusByUserName = getStatusByUserName();
-
-		String statusByUserName = partCacheModel.statusByUserName;
-
-		if ((statusByUserName != null) && (statusByUserName.length() == 0)) {
-			partCacheModel.statusByUserName = null;
-		}
-
-		Date statusDate = getStatusDate();
-
-		if (statusDate != null) {
-			partCacheModel.statusDate = statusDate.getTime();
-		}
-		else {
-			partCacheModel.statusDate = Long.MIN_VALUE;
-		}
-
-		partCacheModel.userName = getUserName();
-
-		String userName = partCacheModel.userName;
-
-		if ((userName != null) && (userName.length() == 0)) {
-			partCacheModel.userName = null;
-		}
-
 		return partCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(21);
 
 		sb.append("{uuid=");
 		sb.append(getUuid());
@@ -897,23 +611,13 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 		sb.append(getOrderDate());
 		sb.append(", quantity=");
 		sb.append(getQuantity());
-		sb.append(", status=");
-		sb.append(getStatus());
-		sb.append(", statusByUserId=");
-		sb.append(getStatusByUserId());
-		sb.append(", statusByUserName=");
-		sb.append(getStatusByUserName());
-		sb.append(", statusDate=");
-		sb.append(getStatusDate());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append("}");
 
 		return sb.toString();
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(34);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.training.parts.model.Part");
@@ -959,26 +663,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 			"<column><column-name>quantity</column-name><column-value><![CDATA[");
 		sb.append(getQuantity());
 		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>status</column-name><column-value><![CDATA[");
-		sb.append(getStatus());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>statusByUserId</column-name><column-value><![CDATA[");
-		sb.append(getStatusByUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>statusByUserName</column-name><column-value><![CDATA[");
-		sb.append(getStatusByUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>statusDate</column-name><column-value><![CDATA[");
-		sb.append(getStatusDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -986,7 +670,9 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 	}
 
 	private static ClassLoader _classLoader = Part.class.getClassLoader();
-	private static Class<?>[] _escapedModelInterfaces = new Class[] { Part.class };
+	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
+			Part.class
+		};
 	private String _uuid;
 	private String _originalUuid;
 	private long _partId;
@@ -1004,12 +690,6 @@ public class PartModelImpl extends BaseModelImpl<Part> implements PartModel {
 	private String _partNumber;
 	private Date _orderDate;
 	private int _quantity;
-	private int _status;
-	private long _statusByUserId;
-	private String _statusByUserUuid;
-	private String _statusByUserName;
-	private Date _statusDate;
-	private String _userName;
 	private long _columnBitmask;
-	private Part _escapedModel;
+	private Part _escapedModelProxy;
 }

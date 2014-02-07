@@ -335,6 +335,18 @@ public class PartLocalServiceUtil {
 		return getService().getPartsByManufacturer(manufacturerId, groupId);
 	}
 
+	public static void updateInventory(long partId, int value)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().updateInventory(partId, value);
+	}
+
+	public static void reorderParts()
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.search.SearchException {
+		getService().reorderParts();
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

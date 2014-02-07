@@ -301,4 +301,12 @@ public interface PartLocalService extends BaseLocalService, InvokableLocalServic
 	public java.util.List<com.liferay.training.parts.model.Part> getPartsByManufacturer(
 		long manufacturerId, long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public void updateInventory(long partId, int value)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void reorderParts()
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.kernel.search.SearchException;
 }
